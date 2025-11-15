@@ -16,12 +16,12 @@
   import Correlations from './pages/Correlations.svelte';
   import Loading from './components/Loading.svelte';
 
-  // Initialize i18n
-  initI18n();
-
   let ready = false;
 
   onMount(async () => {
+    // Initialize i18n first
+    await initI18n();
+
     // Try to load user profile if token exists
     const token = localStorage.getItem('access_token');
     if (token) {

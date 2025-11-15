@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   export let type: string = 'text';
   export let value: string = '';
   export let placeholder: string = '';
@@ -8,8 +10,15 @@
   export let required: boolean = false;
   export let id: string = '';
 
+  const dispatch = createEventDispatcher();
   const inputClasses = 'w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed';
   const errorClasses = 'border-red-500 focus:ring-red-500';
+
+  function handleInput(e: Event) {
+    const target = e.currentTarget as HTMLInputElement;
+    value = target.value;
+    dispatch('input', value);
+  }
 </script>
 
 <div class="w-full">
@@ -26,9 +35,9 @@
     {placeholder}
     {disabled}
     {required}
-    bind:value
+    {value}
     class="{inputClasses} {error ? errorClasses : 'border-gray-300'}"
-    on:input
+    on:input={handleInput}
     on:blur
     on:focus
   />

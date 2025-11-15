@@ -8,8 +8,8 @@ register('en', () => import('./en.json'));
 register('pl', () => import('./pl.json'));
 
 // Initialize i18n
-export function initI18n() {
-  init({
+export async function initI18n() {
+  await init({
     fallbackLocale: 'en',
     initialLocale: getLocaleFromNavigator(),
   });

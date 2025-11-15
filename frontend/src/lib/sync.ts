@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { dbHelpers, SyncOperation } from './db';
+import { dbHelpers, type SyncOperation } from './db';
 import api from './api';
 
 // Sync status interface
