@@ -9,6 +9,9 @@
   import Login from './pages/Login.svelte';
   import Register from './pages/Register.svelte';
   import Dashboard from './pages/Dashboard.svelte';
+  import Metrics from './pages/Metrics.svelte';
+  import DailyLog from './pages/DailyLog.svelte';
+  import Entries from './pages/Entries.svelte';
   import Loading from './components/Loading.svelte';
 
   // Initialize i18n
@@ -32,11 +35,19 @@
     '/register': Register,
     '/dashboard': wrap({
       component: Dashboard,
-      conditions: [
-        (detail) => {
-          return $isAuthenticated;
-        }
-      ]
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/metrics': wrap({
+      component: Metrics,
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/log': wrap({
+      component: DailyLog,
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/entries': wrap({
+      component: Entries,
+      conditions: [(detail) => $isAuthenticated]
     }),
   };
 
