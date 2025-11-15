@@ -1,0 +1,19 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- FINAL: Heart-leaf with stem at bottom, slender, tilt 30° right -->
+
+  <!-- Slender heart-shaped leaf - stem at bottom, tilted 30° right -->
+  <g transform="rotate(30 30 29)">
+    <!-- Heart shape at top, tapering to stem at bottom -->
+    <path d="M 30 42 L 30 32 Q 30 30, 28 28 Q 26 26, 24 26 Q 22 26, 22 28 Q 22 32, 26 36 Q 28 38, 30 38 Q 32 38, 34 36 Q 38 32, 38 28 Q 38 26, 36 26 Q 34 26, 32 28 Q 30 30, 30 32 L 30 14"
+          fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Central vein -->
+    <path d="M 30 42 L 30 20"
+          stroke="#22C55E" stroke-width="1.2" opacity="0.4"/>
+  </g>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#374151">
+    feel<tspan font-weight="500" fill="#22C55E">ink</tspan>
+  </text>
+</svg>
