@@ -1,0 +1,18 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V7 Variation 2: Tilted right 15° -->
+
+  <!-- Elongated heart-shaped leaf - tilted right 15° -->
+  <g transform="rotate(15 30 29)">
+    <path d="M 30 40 Q 24 36, 22 30 Q 22 25, 24 23 Q 26 21, 28 23 Q 29 25, 30 18 Q 31 25, 32 23 Q 34 21, 36 23 Q 38 25, 38 30 Q 38 36, 30 40 Z"
+          fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Central vein -->
+    <path d="M 30 40 L 30 22"
+          stroke="#22C55E" stroke-width="1.2" opacity="0.4"/>
+  </g>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#374151">
+    feel<tspan font-weight="500" fill="#22C55E">ink</tspan>
+  </text>
+</svg>
