@@ -13,6 +13,7 @@
   import DailyLog from './pages/DailyLog.svelte';
   import Entries from './pages/Entries.svelte';
   import Insights from './pages/Insights.svelte';
+  import Correlations from './pages/Correlations.svelte';
   import Loading from './components/Loading.svelte';
 
   // Initialize i18n
@@ -52,6 +53,10 @@
     }),
     '/insights': wrap({
       component: Insights,
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/correlations': wrap({
+      component: Correlations,
       conditions: [(detail) => $isAuthenticated]
     }),
   };

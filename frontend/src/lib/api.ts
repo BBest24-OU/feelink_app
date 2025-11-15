@@ -119,4 +119,23 @@ export const entriesApi = {
   delete: (id: number) => api.delete(`/api/v1/entries/${id}`),
 };
 
+// Analytics API
+export const analyticsApi = {
+  getCorrelations: (params?: {
+    metric_ids?: number[];
+    date_from?: string;
+    date_to?: string;
+    algorithm?: string;
+    max_lag?: number;
+    min_significance?: number;
+    only_significant?: boolean;
+  }) => api.post('/api/v1/analytics/correlations', params || {}),
+
+  getStatistics: (params?: {
+    metric_ids?: string;
+    date_from?: string;
+    date_to?: string;
+  }) => api.get('/api/v1/analytics/statistics', { params }),
+};
+
 export default api;

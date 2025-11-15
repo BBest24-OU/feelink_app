@@ -700,6 +700,62 @@ migrations/
 **Priority**: MEDIUM | **Duration**: 5-6 days
 **Agents**: @data-scientist, @backend-dev, @dataviz-specialist, @clinical-psychologist
 
+#### ✅ STAGE 5 - COMPLETED (2025-11-15)
+
+**Completed Tasks:**
+- ✅ **5.1 Correlation Engine**: Pearson, Spearman, Kendall algorithms with scipy
+- ✅ **5.2 Lag Correlation Analysis**: Time-delayed effects up to 30 days
+- ✅ **5.3 API Endpoints**: POST /correlations, GET /statistics
+- ✅ **5.4 Correlation Service**: Data preparation, analytics service layer
+- ✅ **5.5 Correlation Matrix**: Heatmap visualization with color-coded strengths
+- ✅ **5.6 Scatter Plots**: Interactive Chart.js scatter plots for metric pairs
+- ✅ **5.7 Correlations Page**: Complete UI with filtering, interpretation, analysis
+- ✅ **5.8 Plain-Language Interpretations**: User-friendly correlation explanations
+
+**Additional Files Created (9 files):**
+- `backend/app/analytics/correlation.py`: Correlation engine with Pearson, Spearman, Kendall
+- `backend/app/schemas/analytics.py`: Request/response schemas for analytics API
+- `backend/app/services/analytics_service.py`: Analytics service layer with data preparation
+- `backend/app/api/analytics.py`: Analytics endpoints (correlations, statistics)
+- Updated `backend/app/api/__init__.py`: Register analytics router
+- Updated `backend/app/main.py`: Include analytics router in app
+- `frontend/src/lib/api.ts`: Add analyticsApi methods
+- `frontend/src/components/CorrelationMatrix.svelte`: Heatmap visualization
+- `frontend/src/components/ScatterPlot.svelte`: Scatter plot with Chart.js
+- `frontend/src/pages/Correlations.svelte`: Complete correlations analysis page
+- Updated `frontend/src/App.svelte`: Add /correlations route
+- Updated `frontend/src/pages/Dashboard.svelte`: Add Correlations link in nav
+
+**Key Features Implemented:**
+- **Correlation Algorithms**: Pearson (linear), Spearman (rank), Kendall (rank)
+- **Lag Analysis**: Detect delayed effects (e.g., sleep today → mood tomorrow)
+- **Statistical Significance**: P-value testing, significance threshold (default p<0.05)
+- **Strength Classification**: Weak (|r|<0.3), Moderate (0.3≤|r|<0.7), Strong (|r|≥0.7)
+- **Direction Detection**: Positive, negative, or none
+- **Correlation Matrix**: Visual heatmap with blue (positive) and red (negative) shades
+- **Scatter Plots**: Interactive visualization of metric pairs with regression info
+- **Plain-Language Interpretations**: User-friendly explanations of correlations
+- **Filtering**: Date range, algorithm selection, significance filter, strength filter
+- **Data Requirements**: Minimum 7 data points enforced
+
+**Technical Implementation:**
+- Scipy for correlation calculations (pearsonr, spearmanr, kendalltau)
+- Pandas for data preparation and handling missing values
+- Chart.js ScatterController for scatter plots
+- Color-coded heatmap with significance indicators
+- Automatic lag detection (tests 0-7 days by default)
+- Last Write Wins (LWW) for best lag correlation
+
+**Clinical Considerations:**
+- Clear "correlation ≠ causation" disclaimer
+- Statistical significance clearly marked
+- Sample size displayed for transparency
+- Plain-language interpretations for non-technical users
+
+**Ready for STAGE 6**: Polish, Testing & Deployment ✨
+
+---
+
 #### Tasks:
 
 **5.1 Correlation Engine (Backend)**
