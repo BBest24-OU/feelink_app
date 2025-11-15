@@ -9,9 +9,25 @@
   };
 </script>
 
-<div class="flex flex-col items-center justify-center p-8">
-  <div class="{sizes[size]} border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin"></div>
+<div class="flex flex-col items-center justify-center p-8" role="status" aria-live="polite" aria-busy="true">
+  <div class="{sizes[size]} border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin" aria-hidden="true"></div>
   {#if text}
     <p class="mt-4 text-gray-600">{text}</p>
+  {:else}
+    <span class="sr-only">Loading...</span>
   {/if}
 </div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

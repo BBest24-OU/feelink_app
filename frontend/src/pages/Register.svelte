@@ -71,7 +71,11 @@
         />
 
         {#if error}
-          <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+          <div
+            role="alert"
+            aria-live="assertive"
+            class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
+          >
             {error}
           </div>
         {/if}
