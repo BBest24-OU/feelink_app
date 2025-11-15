@@ -1,0 +1,10 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- WORDMARK 2: Minimal with Dot - Napis z akcentem kropki nad "i" -->
+
+  <text x="10" y="35" font-family="Inter, sans-serif" font-size="32" font-weight="400" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan fill="#14B8A6">i</tspan>nk
+  </text>
+
+  <!-- Emphasized dot above "i" -->
+  <circle cx="93" cy="12" r="4" fill="#14B8A6"/>
+</svg>
