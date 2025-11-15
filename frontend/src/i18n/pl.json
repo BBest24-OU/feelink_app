@@ -1,0 +1,122 @@
+{
+  "common": {
+    "appName": "FeelInk",
+    "loading": "Ładowanie...",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "submit": "Wyślij",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "clear": "Wyczyść",
+    "confirm": "Potwierdź",
+    "error": "Błąd",
+    "success": "Sukces"
+  },
+  "auth": {
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "logout": "Wyloguj",
+    "email": "Email",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "noAccount": "Nie masz konta?",
+    "hasAccount": "Masz już konto?",
+    "loginButton": "Zaloguj",
+    "registerButton": "Utwórz konto",
+    "loginSuccess": "Zalogowano pomyślnie!",
+    "registerSuccess": "Konto utworzone pomyślnie!",
+    "loginError": "Nieprawidłowy email lub hasło",
+    "registerError": "Rejestracja nie powiodła się",
+    "passwordMismatch": "Hasła nie pasują do siebie",
+    "weakPassword": "Hasło musi mieć min. 8 znaków, wielką literę, małą literę i cyfrę",
+    "invalidEmail": "Wprowadź prawidłowy adres email"
+  },
+  "nav": {
+    "dashboard": "Panel główny",
+    "log": "Dziennik",
+    "metrics": "Moje metryki",
+    "insights": "Wnioski",
+    "correlations": "Korelacje",
+    "settings": "Ustawienia",
+    "export": "Eksport danych"
+  },
+  "dashboard": {
+    "title": "Panel główny",
+    "welcome": "Witaj ponownie",
+    "quickLog": "Zapisz dzisiaj",
+    "viewInsights": "Zobacz wnioski",
+    "currentStreak": "Obecna seria",
+    "totalEntries": "Wszystkie wpisy",
+    "recentActivity": "Ostatnia aktywność",
+    "topMetrics": "Najważniejsze metryki"
+  },
+  "metrics": {
+    "title": "Moje metryki",
+    "create": "Utwórz metrykę",
+    "edit": "Edytuj metrykę",
+    "archive": "Archiwizuj",
+    "unarchive": "Przywróć",
+    "name": "Nazwa",
+    "category": "Kategoria",
+    "type": "Typ",
+    "description": "Opis",
+    "color": "Kolor",
+    "icon": "Ikona",
+    "minValue": "Wartość minimalna",
+    "maxValue": "Wartość maksymalna",
+    "showArchived": "Pokaż zarchiwizowane",
+    "noMetrics": "Brak metryk. Utwórz pierwszą metrykę aby zacząć śledzenie!",
+    "categories": {
+      "physical": "Fizyczne",
+      "psychological": "Psychologiczne",
+      "triggers": "Wyzwalacze",
+      "medications": "Leki",
+      "selfcare": "Samoopieka",
+      "wellness": "Dobre samopoczucie",
+      "notes": "Notatki"
+    },
+    "types": {
+      "range": "Zakres (np. 1-10)",
+      "number": "Liczba",
+      "boolean": "Tak/Nie",
+      "count": "Licznik",
+      "text": "Tekst"
+    }
+  },
+  "entries": {
+    "title": "Dziennik",
+    "create": "Nowy wpis",
+    "edit": "Edytuj wpis",
+    "date": "Data",
+    "notes": "Notatki",
+    "values": "Wartości",
+    "addNote": "Dodaj notatkę...",
+    "saveEntry": "Zapisz wpis",
+    "deleteEntry": "Usuń wpis",
+    "noEntries": "Brak wpisów. Zacznij zapisywać aby śledzić swoje wzorce!",
+    "completeEntry": "Wpis zapisany",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten wpis?"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "account": "Konto",
+    "preferences": "Preferencje",
+    "language": "Język",
+    "timezone": "Strefa czasowa",
+    "theme": "Motyw",
+    "notifications": "Powiadomienia",
+    "privacy": "Prywatność",
+    "deleteAccount": "Usuń konto",
+    "deleteConfirm": "Czy na pewno? Ta operacja jest nieodwracalna.",
+    "languages": {
+      "en": "English",
+      "pl": "Polski"
+    }
+  }
+}
