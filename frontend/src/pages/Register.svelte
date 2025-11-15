@@ -52,14 +52,19 @@
           disabled={loading}
         />
 
-        <Input
-          id="password"
-          type="password"
-          label={$t('auth.password')}
-          bind:value={password}
-          required
-          disabled={loading}
-        />
+        <div>
+          <Input
+            id="password"
+            type="password"
+            label={$t('auth.password')}
+            bind:value={password}
+            required
+            disabled={loading}
+          />
+          <p class="mt-1 text-xs text-gray-500">
+            Password must contain at least one uppercase letter
+          </p>
+        </div>
 
         <Input
           id="confirmPassword"

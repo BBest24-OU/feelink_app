@@ -43,8 +43,11 @@ export const authActions = {
   async register(email: string, password: string, language: string = 'en') {
     authStore.update((state) => ({ ...state, loading: true, error: null }));
 
+    // Convert locale format (e.g., 'pl-PL' -> 'pl', 'en-US' -> 'en')
+    const langCode = language.split('-')[0];
+
     try {
-      const response = await authApi.register({ email, password, language });
+      const response = await authApi.register({ email, password, language: langCode });
       const { user, tokens } = response.data;
 
       localStorage.setItem('access_token', tokens.access_token);
@@ -60,7 +63,17 @@ export const authActions = {
 
       return { success: true };
     } catch (error: any) {
-      const errorMsg = error.response?.data?.detail || 'Registration failed';
+      // Format validation errors from FastAPI
+      let errorMsg = 'Registration failed';
+      if (error.response?.data?.detail) {
+        const detail = error.response.data.detail;
+        if (Array.isArray(detail)) {
+          // Format validation errors into readable messages
+          errorMsg = detail.map((err: any) => err.msg || err.message || String(err)).join(', ');
+        } else if (typeof detail === 'string') {
+          errorMsg = detail;
+        }
+      }
       authStore.update((state) => ({ ...state, loading: false, error: errorMsg }));
       return { success: false, error: errorMsg };
     }
@@ -87,7 +100,16 @@ export const authActions = {
 
       return { success: true };
     } catch (error: any) {
-      const errorMsg = error.response?.data?.detail || 'Login failed';
+      // Format validation errors from FastAPI
+      let errorMsg = 'Login failed';
+      if (error.response?.data?.detail) {
+        const detail = error.response.data.detail;
+        if (Array.isArray(detail)) {
+          errorMsg = detail.map((err: any) => err.msg || err.message || String(err)).join(', ');
+        } else if (typeof detail === 'string') {
+          errorMsg = detail;
+        }
+      }
       authStore.update((state) => ({ ...state, loading: false, error: errorMsg }));
       return { success: false, error: errorMsg };
     }
