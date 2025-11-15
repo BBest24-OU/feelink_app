@@ -3,19 +3,60 @@
   import { authStore, authActions } from '../stores/user';
   import { metricsActions, activeMetrics } from '../stores/metrics';
   import { entriesActions, entriesStore } from '../stores/entries';
+  import { syncStatus } from '../lib/sync';
   import { t } from '../i18n';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
+  import CalendarHeatmap from '../components/CalendarHeatmap.svelte';
+  import { format, subDays, parseISO } from 'date-fns';
 
   onMount(async () => {
     await metricsActions.load(false);
-    await entriesActions.load({ limit: 10 });
+    await entriesActions.load({ limit: 100 });
   });
 
   function handleLogout() {
     authActions.logout();
     window.location.hash = '/login';
   }
+
+  function handleDateClick(date: string) {
+    window.location.hash = `/log?date=${date}`;
+  }
+
+  // Calculate current streak
+  $: currentStreak = (() => {
+    if ($entriesStore.entries.length === 0) return 0;
+
+    const sortedEntries = [...$entriesStore.entries].sort(
+      (a, b) => new Date(b.entry_date).getTime() - new Date(a.entry_date).getTime()
+    );
+
+    let streak = 0;
+    let currentDate = new Date();
+    const today = format(currentDate, 'yyyy-MM-dd');
+
+    // Check if there's an entry for today
+    const todayEntry = sortedEntries.find((e) => e.entry_date === today);
+    if (!todayEntry) {
+      // If no entry today, check yesterday
+      currentDate = subDays(currentDate, 1);
+    }
+
+    // Count consecutive days
+    for (let i = 0; i < sortedEntries.length; i++) {
+      const expectedDate = format(subDays(currentDate, streak), 'yyyy-MM-dd');
+      const entry = sortedEntries.find((e) => e.entry_date === expectedDate);
+
+      if (entry && entry.values.length > 0) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+
+    return streak;
+  })();
 </script>
 
 <div class="min-h-screen bg-gray-50">
@@ -36,6 +77,9 @@
           <a href="#/entries" class="text-gray-700 hover:text-primary-600 font-medium">
             Entries
           </a>
+          <a href="#/insights" class="text-gray-700 hover:text-primary-600 font-medium">
+            Insights
+          </a>
           <Button size="sm" variant="ghost" on:click={handleLogout}>
             {$t('auth.logout')}
           </Button>
@@ -51,10 +95,10 @@
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <Card>
         <h3 class="text-lg font-semibold text-gray-700 mb-2">{$t('dashboard.currentStreak')}</h3>
-        <p class="text-4xl font-bold text-primary-600">0</p>
+        <p class="text-4xl font-bold text-primary-600">{currentStreak}</p>
         <p class="text-sm text-gray-500 mt-1">days</p>
       </Card>
 
@@ -69,9 +113,21 @@
         <p class="text-4xl font-bold text-indigo-600">{$activeMetrics.length}</p>
         <p class="text-sm text-gray-500 mt-1">metrics</p>
       </Card>
+
+      <Card>
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Sync Status</h3>
+        <p class="text-2xl font-bold" class:text-green-600={$syncStatus.isOnline} class:text-red-600={!$syncStatus.isOnline}>
+          {$syncStatus.isOnline ? 'Online' : 'Offline'}
+        </p>
+        {#if $syncStatus.pendingCount > 0}
+          <p class="text-sm text-gray-500 mt-1">{$syncStatus.pendingCount} pending</p>
+        {:else}
+          <p class="text-sm text-gray-500 mt-1">All synced</p>
+        {/if}
+      </Card>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <Card>
         <h2 class="text-xl font-bold text-gray-800 mb-4">{$t('dashboard.quickLog')}</h2>
         <p class="text-gray-600 mb-4">Ready to log today's entry?</p>
@@ -102,5 +158,10 @@
         {/if}
       </Card>
     </div>
+
+    <Card>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Entry Calendar</h2>
+      <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />
+    </Card>
   </div>
 </div>

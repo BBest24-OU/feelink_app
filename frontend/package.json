@@ -22,9 +22,9 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "@vite-pwa/assets-generator": "^0.2.4",
     "axios": "^1.6.2",
     "chart.js": "^4.4.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^2.30.0",
     "dexie": "^3.2.4",
     "svelte-i18n": "^4.0.0",

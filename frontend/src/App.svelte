@@ -12,6 +12,7 @@
   import Metrics from './pages/Metrics.svelte';
   import DailyLog from './pages/DailyLog.svelte';
   import Entries from './pages/Entries.svelte';
+  import Insights from './pages/Insights.svelte';
   import Loading from './components/Loading.svelte';
 
   // Initialize i18n
@@ -47,6 +48,10 @@
     }),
     '/entries': wrap({
       component: Entries,
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/insights': wrap({
+      component: Insights,
       conditions: [(detail) => $isAuthenticated]
     }),
   };
