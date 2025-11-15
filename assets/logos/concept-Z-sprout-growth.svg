@@ -1,0 +1,24 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT Z: Sprout Growth - Kiełek wzrostu -->
+  <!-- Prosta roślinka wznosząca się - symbol nowego początku -->
+
+  <!-- Stem -->
+  <path d="M 30 42 Q 30 32, 30 22"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Left leaf -->
+  <path d="M 30 28 Q 24 26, 20 28 Q 22 30, 26 30 Q 29 29, 30 28"
+        fill="#14B8A6" opacity="0.7"/>
+
+  <!-- Right leaf -->
+  <path d="M 30 28 Q 36 26, 40 28 Q 38 30, 34 30 Q 31 29, 30 28"
+        fill="#14B8A6" opacity="0.7"/>
+
+  <!-- Top bud/new growth -->
+  <circle cx="30" cy="20" r="3" fill="#14B8A6"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

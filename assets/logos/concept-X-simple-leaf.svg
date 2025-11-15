@@ -1,0 +1,21 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT X: Simple Leaf - Prosty, elegancki liść -->
+  <!-- Jeden delikatny liść jako symbol wzrostu i naturalności -->
+
+  <!-- Leaf shape - simple and elegant -->
+  <path d="M 30 40 Q 30 30, 30 20 Q 32 18, 36 20 Q 38 28, 36 36 Q 34 38, 30 40 Z"
+        fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Leaf vein (central) -->
+  <path d="M 30 40 L 30 20"
+        stroke="#14B8A6" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Side veins (subtle) -->
+  <path d="M 30 28 Q 32 28, 34 30" stroke="#14B8A6" stroke-width="1" opacity="0.3"/>
+  <path d="M 30 34 Q 32 34, 34 35" stroke="#14B8A6" stroke-width="1" opacity="0.3"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

@@ -1,0 +1,31 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT AC: Reaching Hand - Wyciągnięta dłoń -->
+  <!-- Dłoń wyciągnięta w geście pomocy/wsparcia -->
+
+  <!-- Wrist/forearm -->
+  <path d="M 14 42 L 22 36"
+        stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Palm base -->
+  <path d="M 22 36 Q 28 34, 34 36"
+        stroke="#14B8A6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Thumb (to the side) -->
+  <path d="M 24 36 Q 20 32, 20 28"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Four fingers reaching forward/up -->
+  <path d="M 26 34 Q 26 26, 26 20"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M 29 34 Q 29 24, 29 16"
+        stroke="#14B8A6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 32 34 Q 32 26, 32 18"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 35 36 Q 35 28, 35 22"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="50" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

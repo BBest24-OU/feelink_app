@@ -1,0 +1,20 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT AB: Open Palm - Otwarta dłoń oferująca wsparcie -->
+  <!-- Widok z boku otwartej dłoni -->
+
+  <!-- Palm curve -->
+  <path d="M 16 38 Q 20 36, 26 36 Q 32 36, 36 38"
+        stroke="#14B8A6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Fingers (simple lines) -->
+  <line x1="18" y1="38" x2="18" y2="22" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="24" y1="36" x2="24" y2="18" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="28" y1="36" x2="28" y2="16" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+  <line x1="32" y1="36" x2="32" y2="20" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="36" y1="38" x2="36" y2="24" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="50" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

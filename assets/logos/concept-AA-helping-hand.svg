@@ -1,0 +1,29 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT AA: Helping Hand - Wyraźniejsza pomocna dłoń -->
+  <!-- Bardziej rozpoznawalna forma dłoni oferującej wsparcie -->
+
+  <!-- Palm (base) -->
+  <path d="M 18 40 Q 30 38, 42 40 L 40 34 L 20 34 Z"
+        fill="#14B8A6" opacity="0.3"/>
+
+  <!-- Thumb -->
+  <path d="M 20 34 Q 16 32, 16 28 Q 16 26, 18 26 Q 20 26, 20 28 L 20 34"
+        fill="#14B8A6" opacity="0.6"/>
+
+  <!-- Index finger (longest, pointing up) -->
+  <path d="M 24 34 Q 24 24, 24 16 Q 24 14, 26 14 Q 28 14, 28 16 L 28 34"
+        fill="#14B8A6"/>
+
+  <!-- Middle finger -->
+  <path d="M 30 34 Q 30 22, 30 14 Q 30 12, 32 12 Q 34 12, 34 14 L 34 34"
+        fill="#14B8A6" opacity="0.9"/>
+
+  <!-- Ring finger -->
+  <path d="M 36 34 Q 36 24, 36 18 Q 36 16, 38 16 Q 40 16, 40 18 L 40 34"
+        fill="#14B8A6" opacity="0.7"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="54" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>
