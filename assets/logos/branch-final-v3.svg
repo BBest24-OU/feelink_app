@@ -1,0 +1,21 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- FINAL V3: 3 listki, bardziej rozłożone, delikatne -->
+
+  <!-- Main stem - gentle lean right (~18 degrees) -->
+  <path d="M 25 42 Q 29 32, 33 22 Q 37 14, 41 8"
+        stroke="#14B8A6" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+
+  <!-- Bottom leaf - slender, spaced out -->
+  <ellipse cx="23" cy="37" rx="5.2" ry="2.3" fill="#14B8A6" opacity="0.6" transform="rotate(-38 23 37)"/>
+
+  <!-- Middle leaf - more space between -->
+  <ellipse cx="34" cy="24" rx="5.5" ry="2.5" fill="#14B8A6" opacity="0.72" transform="rotate(20 34 24)"/>
+
+  <!-- Top leaf - slender and elegant -->
+  <ellipse cx="42" cy="10" rx="4" ry="6.2" fill="#14B8A6" opacity="0.84" transform="rotate(18 42 10)"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="58" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

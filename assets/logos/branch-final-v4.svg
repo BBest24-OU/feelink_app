@@ -1,0 +1,22 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- FINAL V4: 4 listki, asymetryczne, naturalne, smukłe -->
+
+  <!-- Main stem - natural curve leaning right (~20 degrees) -->
+  <path d="M 24 42 Q 27 34, 31 26 Q 34 19, 38 11 Q 39 9, 40 8"
+        stroke="#14B8A6" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Leaves - asymmetric, slender, natural placement -->
+  <ellipse cx="21" cy="38" rx="4.8" ry="2.1" fill="#14B8A6" opacity="0.58" transform="rotate(-42 21 38)"/>
+
+  <ellipse cx="28" cy="29" rx="5" ry="2.2" fill="#14B8A6" opacity="0.67" transform="rotate(-30 28 29)"/>
+
+  <ellipse cx="35" cy="20" rx="5.3" ry="2.4" fill="#14B8A6" opacity="0.76" transform="rotate(18 35 20)"/>
+
+  <!-- Top leaf -->
+  <ellipse cx="40" cy="11" rx="3.8" ry="5.8" fill="#14B8A6" opacity="0.84" transform="rotate(14 40 11)"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="56" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>
