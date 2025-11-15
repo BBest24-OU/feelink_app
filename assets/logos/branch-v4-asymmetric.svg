@@ -1,0 +1,22 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BRANCH V4: Asymmetric - Bardziej naturalna, asymetryczna gałązka -->
+
+  <!-- Main stem (slightly curved) -->
+  <path d="M 28 42 Q 29 35, 31 28 Q 32 22, 35 14"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Leaves - asymmetric placement (more natural) -->
+  <ellipse cx="26" cy="37" rx="4.5" ry="2.8" fill="#14B8A6" opacity="0.6" transform="rotate(-35 26 37)"/>
+  <ellipse cx="33" cy="32" rx="3.8" ry="2.5" fill="#14B8A6" opacity="0.65" transform="rotate(25 33 32)"/>
+
+  <ellipse cx="28" cy="26" rx="4.2" ry="3" fill="#14B8A6" opacity="0.7" transform="rotate(-30 28 26)"/>
+  <ellipse cx="36" cy="23" rx="4" ry="2.7" fill="#14B8A6" opacity="0.75" transform="rotate(28 36 23)"/>
+
+  <!-- Top leaf (slightly to the right) -->
+  <ellipse cx="36" cy="16" rx="3.5" ry="5" fill="#14B8A6" opacity="0.82" transform="rotate(15 36 16)"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

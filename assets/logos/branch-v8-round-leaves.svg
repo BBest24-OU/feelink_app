@@ -1,0 +1,24 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BRANCH V8: Round Leaves - Bardziej okrągłe, miękkie listki -->
+
+  <!-- Main stem (gentle curve) -->
+  <path d="M 28 42 Q 30 34, 32 26 Q 33 20, 34 14"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Rounder, softer leaves (more circular) -->
+  <circle cx="26" cy="36" r="3.5" fill="#14B8A6" opacity="0.6"/>
+  <circle cx="35" cy="34" r="3.5" fill="#14B8A6" opacity="0.6"/>
+
+  <circle cx="27" cy="28" r="4" fill="#14B8A6" opacity="0.7"/>
+  <circle cx="36" cy="25" r="4" fill="#14B8A6" opacity="0.7"/>
+
+  <circle cx="29" cy="20" r="3.8" fill="#14B8A6" opacity="0.75"/>
+
+  <!-- Top leaf (slightly oval) -->
+  <ellipse cx="34" cy="15" rx="3.5" ry="4.5" fill="#14B8A6" opacity="0.82"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

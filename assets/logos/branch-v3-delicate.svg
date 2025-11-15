@@ -1,0 +1,25 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BRANCH V3: Delicate - Delikatna gałązka (7 małych listków) -->
+
+  <!-- Main stem (thinner) -->
+  <path d="M 28 42 Q 30 34, 32 26 Q 33 20, 34 14"
+        stroke="#14B8A6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Small leaves (alternating, more of them) -->
+  <ellipse cx="26" cy="39" rx="3" ry="2" fill="#14B8A6" opacity="0.5" transform="rotate(-30 26 39)"/>
+  <ellipse cx="35" cy="36" rx="3" ry="2" fill="#14B8A6" opacity="0.55" transform="rotate(30 35 36)"/>
+
+  <ellipse cx="27" cy="32" rx="3.5" ry="2.2" fill="#14B8A6" opacity="0.6" transform="rotate(-28 27 32)"/>
+  <ellipse cx="35" cy="29" rx="3.5" ry="2.2" fill="#14B8A6" opacity="0.65" transform="rotate(28 35 29)"/>
+
+  <ellipse cx="28" cy="24" rx="3.5" ry="2.5" fill="#14B8A6" opacity="0.7" transform="rotate(-25 28 24)"/>
+  <ellipse cx="36" cy="21" rx="3.5" ry="2.5" fill="#14B8A6" opacity="0.75" transform="rotate(25 36 21)"/>
+
+  <!-- Top leaf -->
+  <ellipse cx="34" cy="15" rx="3" ry="4.5" fill="#14B8A6" opacity="0.8" transform="rotate(8 34 15)"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

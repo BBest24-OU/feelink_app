@@ -1,0 +1,21 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BRANCH V1: Minimal - Bardzo minimalistyczna gałązka (3 listki) -->
+
+  <!-- Main stem -->
+  <path d="M 30 42 Q 31 34, 32 24 Q 32.5 18, 33 12"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Left leaf (bottom) -->
+  <ellipse cx="27" cy="36" rx="4.5" ry="3" fill="#14B8A6" opacity="0.65" transform="rotate(-35 27 36)"/>
+
+  <!-- Right leaf (middle) -->
+  <ellipse cx="35" cy="28" rx="4.5" ry="3" fill="#14B8A6" opacity="0.75" transform="rotate(30 35 28)"/>
+
+  <!-- Top leaf (smallest) -->
+  <ellipse cx="33" cy="14" rx="3.5" ry="5" fill="#14B8A6" opacity="0.85" transform="rotate(5 33 14)"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

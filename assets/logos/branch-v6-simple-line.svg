@@ -1,0 +1,21 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- BRANCH V6: Simple Line - Prosta linia z listkami (bardziej geometryczna) -->
+
+  <!-- Main stem (straight, simple) -->
+  <line x1="31" y1="42" x2="31" y2="14" stroke="#14B8A6" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Leaves as simple ovals (more geometric, less organic) -->
+  <ellipse cx="26" cy="36" rx="4.5" ry="3" fill="#14B8A6" opacity="0.6" transform="rotate(-40 26 36)"/>
+  <ellipse cx="36" cy="33" rx="4.5" ry="3" fill="#14B8A6" opacity="0.6" transform="rotate(40 36 33)"/>
+
+  <ellipse cx="26" cy="27" rx="5" ry="3.2" fill="#14B8A6" opacity="0.7" transform="rotate(-35 26 27)"/>
+  <ellipse cx="36" cy="24" rx="5" ry="3.2" fill="#14B8A6" opacity="0.7" transform="rotate(35 36 24)"/>
+
+  <!-- Top leaf -->
+  <ellipse cx="31" cy="15" rx="3.5" ry="5.5" fill="#14B8A6" opacity="0.85"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>
