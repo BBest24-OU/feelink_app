@@ -5,6 +5,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
+from app.api import auth_router, users_router, metrics_router, entries_router
+
 # Create FastAPI application
 app = FastAPI(
     title="FeelInk API",
@@ -25,6 +27,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include API routers
+app.include_router(auth_router, prefix="/api/v1")
+app.include_router(users_router, prefix="/api/v1")
+app.include_router(metrics_router, prefix="/api/v1")
+app.include_router(entries_router, prefix="/api/v1")
+
 
 # Health check endpoint
 @app.get("/health")
@@ -44,11 +52,13 @@ async def root():
     return {
         "message": "Welcome to FeelInk API! 🎯",
         "status": "running",
-        "docs": "/docs"
+        "version": "1.0.0",
+        "docs": "/docs",
+        "stage": "STAGE 1 - Backend Foundation Complete ✅"
     }
 
 
-# API v1 prefix group (will be populated in later stages)
+# API v1 prefix group
 @app.get("/api/v1")
 async def api_root():
     """API v1 root endpoint"""
@@ -58,8 +68,11 @@ async def api_root():
             "auth": "/api/v1/auth",
             "users": "/api/v1/users",
             "metrics": "/api/v1/metrics",
-            "entries": "/api/v1/entries",
-            "analytics": "/api/v1/analytics"
+            "entries": "/api/v1/entries"
+        },
+        "documentation": {
+            "swagger": "/docs",
+            "redoc": "/redoc"
         }
     }
 
