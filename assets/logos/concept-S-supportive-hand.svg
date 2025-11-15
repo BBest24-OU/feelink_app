@@ -1,0 +1,24 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT S: Supportive Hand - Pomocna dłoń wspierająca -->
+  <!-- Abstrakcyjna dłoń podtrzymująca punkt/osobę -->
+
+  <!-- Palm/base of hand -->
+  <path d="M 16 40 Q 30 36, 44 40"
+        stroke="#14B8A6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Fingers (3 lines reaching up) -->
+  <path d="M 22 40 Q 22 32, 24 26"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M 30 36 Q 30 28, 30 20"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 38 40 Q 38 32, 36 26"
+        stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- What's being supported -->
+  <circle cx="30" cy="22" r="3.5" fill="#14B8A6"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="58" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

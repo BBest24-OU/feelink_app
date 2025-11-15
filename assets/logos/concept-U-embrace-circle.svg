@@ -1,0 +1,16 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT U: Embrace Circle - Okrąg objęcia/wsparcia -->
+  <!-- Niepełny okrąg (jak ramiona w objęciu) z sercem/punktem w środku -->
+
+  <!-- Open circle (like embracing arms) - gap at bottom -->
+  <path d="M 18 36 Q 14 30, 14 24 Q 14 16, 22 12 Q 30 8, 38 12 Q 46 16, 46 24 Q 46 30, 42 36"
+        stroke="#14B8A6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Center point (what's being embraced) -->
+  <circle cx="30" cy="24" r="4" fill="#14B8A6" opacity="0.8"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="60" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

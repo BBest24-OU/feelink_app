@@ -1,0 +1,24 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT W: Rising Lotus - Lotosu wyłaniający się -->
+  <!-- Uproszczona forma lotosu - 3 płatki w górę -->
+
+  <!-- Center stem -->
+  <line x1="30" y1="40" x2="30" y2="28" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Center petal (tallest) -->
+  <path d="M 30 28 Q 30 20, 28 14 Q 30 16, 32 14 Q 30 20, 30 28"
+        fill="#14B8A6" opacity="0.9"/>
+
+  <!-- Left petal -->
+  <path d="M 30 28 Q 26 24, 22 20 Q 24 22, 24 26 Q 26 28, 30 28"
+        fill="#14B8A6" opacity="0.6"/>
+
+  <!-- Right petal -->
+  <path d="M 30 28 Q 34 24, 38 20 Q 36 22, 36 26 Q 34 28, 30 28"
+        fill="#14B8A6" opacity="0.6"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="54" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>

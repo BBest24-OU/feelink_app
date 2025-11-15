@@ -1,0 +1,24 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT Q: Lotus Bloom - Minimalistyczny kwiat lotosu -->
+  <!-- Płatki otwierające się w górę - symbol rozwoju, spokoju -->
+
+  <!-- Center of lotus -->
+  <circle cx="30" cy="34" r="3" fill="#14B8A6"/>
+
+  <!-- Inner petals (3 petals) -->
+  <path d="M 30 34 Q 30 28, 26 24" stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 30 34 Q 30 26, 30 20" stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 30 34 Q 30 28, 34 24" stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Outer petals (softer, lighter) -->
+  <path d="M 30 34 Q 24 32, 20 26" stroke="#14B8A6" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 30 34 Q 36 32, 40 26" stroke="#14B8A6" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Base/support (subtle) -->
+  <path d="M 30 34 L 30 40" stroke="#14B8A6" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Typography (Wordmark 1 style) -->
+  <text x="60" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>
