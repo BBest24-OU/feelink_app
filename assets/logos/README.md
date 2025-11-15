@@ -8,84 +8,38 @@ This directory contains all logo concepts and brand visual assets for FeelInk.
 
 ---
 
-## Logo Concepts
+## Logo Concepts - NEW EXPLORATION ⭐
 
-### 1. The Link (RECOMMENDED) ⭐
+**📋 See [CONCEPTS_OVERVIEW.md](./CONCEPTS_OVERVIEW.md) for detailed review of all 10 concepts**
+
+We've created **10 diverse logo concepts** representing completely different visual directions:
+
+- **Concept A**: Minimalistyczny Wordmark (typograficzny)
+- **Concept B**: Geometryczna Kropka (data point)
+- **Concept C**: Organiczna Fala (flow/emotions)
+- **Concept D**: Wykres Słupkowy (analytics)
+- **Concept E**: Puls/Linia Tętna (wellness)
+- **Concept F**: Monogram FI (elegant letterform)
+- **Concept G**: Kropla Atramentu (ink drop)
+- **Concept H**: Węzeł/Połączone Kółka (correlations)
+- **Concept I**: Abstrakcyjna Litera F (geometric)
+- **Concept J**: Timeline z Punktami (tracking over time)
+
+**All concept files:** `concept-A.svg` through `concept-J.svg`
+
+**Status:** Awaiting user feedback to select preferred direction
+
+---
+
+## Previous Concepts (For Reference)
+
+### The Link (Initial Concept)
 
 **File:** `feelink-logo-concept-the-link.svg`
 
-**Description:**
-- Minimalist design featuring two abstract shapes connecting
-- **Left shape**: Organic, fluid blob (representing feelings/emotions)
-- **Right shape**: Geometric square with rounded corners (representing data/analysis)
-- **Connection**: Subtle dot pattern linking the two shapes
-- **Typography**: "FeelInk" in Inter font, clean and professional
+**Description:** Two abstract shapes connecting (organic + geometric)
 
-**Visual Metaphor:** Bridging subjective feelings with objective insights
-
-**Why it works:**
-- Immediately communicates the app's purpose
-- Simple enough to work at small sizes
-- Distinctive and memorable
-- Scalable from favicon to billboard
-
-**Usage:**
-- Primary logo for all applications
-- App icon (simplified, icon-only version)
-- Website header
-- Marketing materials
-
----
-
-### 2. The Pulse
-
-**Description:**
-- Abstract heart rate/mood curve forming letter "f"
-- Smooth, calming wave that transitions from organic to structured
-- Custom "i" dotted with small circle
-
-**Visual Metaphor:** Tracking emotional patterns over time
-
-**Best for:** Marketing materials emphasizing tracking/monitoring
-
----
-
-### 3. The Connection Nodes
-
-**Description:**
-- Three dots arranged in triangle, connected by subtle lines
-- Represents: tracking → correlation → insight
-- Minimalist, clean, geometric
-
-**Visual Metaphor:** Connecting data points to discover patterns
-
-**Best for:** Technical documentation, developer materials
-
----
-
-### 4. The Journey Path
-
-**Description:**
-- Abstract path/timeline with subtle elevation changes
-- Represents personal mental health journey
-- Single continuous line forming subtle "F" shape
-
-**Visual Metaphor:** The ups and downs mapped over time
-
-**Best for:** Onboarding screens, progress visualization
-
----
-
-### 5. The Infinity Link
-
-**Description:**
-- Stylized infinity symbol (∞) with one loop organic, one geometric
-- Represents continuous self-discovery cycle
-- Subtle break in center forming two "i" dots
-
-**Visual Metaphor:** Ongoing journey of self-understanding
-
-**Best for:** Premium/professional version, therapy partnerships
+**Status:** Under review - may not match desired direction
 
 ---
 

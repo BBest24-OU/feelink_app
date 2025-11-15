@@ -1,0 +1,12 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT C: Organiczna fala/flow -->
+  <!-- Płynna linia przedstawiająca zmiany nastroju -->
+
+  <!-- Smooth wave line -->
+  <path d="M 5 30 Q 15 15, 25 30 T 45 30" stroke="#14B8A6" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Typography -->
+  <text x="58" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="400" fill="#1E293B">
+    FeelInk
+  </text>
+</svg>

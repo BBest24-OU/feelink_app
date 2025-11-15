@@ -1,0 +1,20 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CONCEPT F: Elegancki monogram FI -->
+  <!-- Połączone litery F i I w minimalistyczny symbol -->
+
+  <!-- Monogram: F + I merged -->
+  <g>
+    <!-- F shape -->
+    <path d="M 15 12 L 15 48 M 15 12 L 35 12 M 15 28 L 32 28"
+          stroke="#14B8A6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- I shape (integrated) -->
+    <line x1="40" y1="12" x2="40" y2="48" stroke="#14B8A6" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="40" cy="7" r="2.5" fill="#14B8A6"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="58" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="400" fill="#1E293B">
+    FeelInk
+  </text>
+</svg>
