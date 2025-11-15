@@ -1,0 +1,16 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- HEART LEAF V7: Elongated - Bardziej wydłużony kształt -->
+
+  <!-- Elongated heart-shaped leaf -->
+  <path d="M 30 40 Q 24 36, 22 30 Q 22 25, 24 23 Q 26 21, 28 23 Q 29 25, 30 18 Q 31 25, 32 23 Q 34 21, 36 23 Q 38 25, 38 30 Q 38 36, 30 40 Z"
+        fill="none" stroke="#14B8A6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Central vein -->
+  <path d="M 30 40 L 30 22"
+        stroke="#14B8A6" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Typography (Wordmark 1) -->
+  <text x="52" y="38" font-family="Inter, sans-serif" font-size="28" font-weight="300" letter-spacing="-0.01em" fill="#1E293B">
+    feel<tspan font-weight="500" fill="#14B8A6">ink</tspan>
+  </text>
+</svg>
