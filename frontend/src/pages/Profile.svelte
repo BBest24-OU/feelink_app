@@ -14,6 +14,7 @@
   let success: string | null = null;
 
   onMount(async () => {
+    console.log('[Profile] Component mounted');
     if (!$authStore.accessToken) {
       window.location.hash = '/login';
       return;
@@ -22,6 +23,7 @@
     if (!$authStore.user) {
       await authActions.loadProfile();
     }
+    console.log('[Profile] User loaded:', $authStore.user);
   });
 
   async function handleGenerateDemoData() {
@@ -171,15 +173,23 @@
 
       <!-- Data Section -->
       <Card>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">{$t('profile.dataSection')}</h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">
+          {$t('profile.dataSection')}
+          <!-- Debug: Section is rendering -->
+        </h3>
         <p class="text-gray-600 mb-6">{$t('profile.dataSectionDescription')}</p>
 
         <div class="space-y-4">
+          <!-- Demo Data Section -->
           <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.demoData')}</h4>
             <p class="text-sm text-gray-600 mb-4">{$t('profile.demoDataDescription')}</p>
+            <p class="text-xs text-gray-500 mb-2">Debug: Button should appear below</p>
             <Button
-              on:click={() => showDemoConfirmModal = true}
+              on:click={() => {
+                console.log('[Profile] Demo data button clicked');
+                showDemoConfirmModal = true;
+              }}
               variant="primary"
               disabled={isGeneratingDemo || isClearingData}
             >
@@ -191,11 +201,16 @@
             </Button>
           </div>
 
+          <!-- Clear Data Section -->
           <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
             <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.clearData')}</h4>
             <p class="text-sm text-gray-600 mb-4">{$t('profile.clearDataDescription')}</p>
+            <p class="text-xs text-gray-500 mb-2">Debug: Button should appear below</p>
             <Button
-              on:click={() => showClearConfirmModal = true}
+              on:click={() => {
+                console.log('[Profile] Clear data button clicked');
+                showClearConfirmModal = true;
+              }}
               variant="danger"
               disabled={isGeneratingDemo || isClearingData}
             >
