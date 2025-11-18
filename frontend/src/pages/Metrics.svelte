@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { metricsStore, metricsActions, type Metric } from '../stores/metrics';
   import { t } from '../i18n';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
   import Loading from '../components/Loading.svelte';
@@ -136,9 +137,12 @@
   }
 </script>
 
-<div class="container mx-auto p-6">
+<AuthenticatedLayout>
   <div class="flex justify-between items-center mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">{$t('metrics.title')}</h1>
+    <div>
+      <h1 class="text-3xl font-bold text-gray-800">{$t('metrics.title')}</h1>
+      <p class="text-gray-600 mt-2">Create and manage your custom tracking metrics.</p>
+    </div>
     <Button variant="primary" on:click={openCreateModal}>
       + {$t('metrics.create')}
     </Button>
@@ -226,10 +230,10 @@
             {/each}
           </div>
         </div>
-      {/each}
-    </div>
+    {/each}
+  </div>
   {/if}
-</div>
+</AuthenticatedLayout>
 
 <Modal bind:open={showCreateModal} title={editingMetric ? $t('metrics.edit') : $t('metrics.create')}>
   <form on:submit|preventDefault={handleSubmit} class="space-y-4">

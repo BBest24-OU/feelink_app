@@ -3,6 +3,7 @@
   import { metricsActions, activeMetrics } from '../stores/metrics';
   import { entriesActions, entriesStore } from '../stores/entries';
   import { analyticsApi } from '../lib/api';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
   import CorrelationMatrix from '../components/CorrelationMatrix.svelte';
@@ -143,12 +144,11 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="container mx-auto">
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-800">Correlations Analysis</h1>
-      <p class="text-gray-600 mt-2">Discover relationships between your metrics</p>
-    </div>
+<AuthenticatedLayout>
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Correlations Analysis</h1>
+    <p class="text-gray-600 mt-2">Discover meaningful relationships between your tracked metrics.</p>
+  </div>
 
     <!-- Controls -->
     <Card>
@@ -343,8 +343,7 @@
             <strong>Statistical significance</strong> (p &lt; 0.05) indicates the correlation is
             unlikely to be due to random chance.
           </p>
-        </div>
-      </Card>
-    </div>
+      </div>
+    </Card>
   </div>
-</div>
+</AuthenticatedLayout>

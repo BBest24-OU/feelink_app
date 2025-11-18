@@ -40,7 +40,8 @@
   "nav": {
     "dashboard": "Panel główny",
     "log": "Dziennik",
-    "metrics": "Moje metryki",
+    "entries": "Wpisy",
+    "metrics": "Metryki",
     "insights": "Wnioski",
     "correlations": "Korelacje",
     "settings": "Ustawienia",

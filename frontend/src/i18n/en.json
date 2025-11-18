@@ -40,7 +40,8 @@
   "nav": {
     "dashboard": "Dashboard",
     "log": "Daily Log",
-    "metrics": "My Metrics",
+    "entries": "Entries",
+    "metrics": "Metrics",
     "insights": "Insights",
     "correlations": "Correlations",
     "settings": "Settings",

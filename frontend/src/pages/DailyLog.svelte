@@ -4,6 +4,7 @@
   import { metricsStore, metricsActions, activeMetrics, metricsByCategory } from '../stores/metrics';
   import { entriesActions } from '../stores/entries';
   import { t } from '../i18n';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
   import Loading from '../components/Loading.svelte';
@@ -111,9 +112,10 @@
   $: progress = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 </script>
 
-<div class="container mx-auto p-6 max-w-4xl">
+<AuthenticatedLayout maxWidth="lg">
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-4">{$t('entries.title')}</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">{$t('entries.title')}</h1>
+    <p class="text-gray-600">Log your daily metrics and track how you're feeling.</p>
 
     <div class="flex items-center space-x-4 mb-4">
       <Input
@@ -248,7 +250,7 @@
         <Button type="submit" variant="primary" disabled={saving || completedCount === 0}>
           {saving ? $t('common.loading') : $t('entries.saveEntry')}
         </Button>
-      </div>
-    </form>
+    </div>
+  </form>
   {/if}
-</div>
+</AuthenticatedLayout>
