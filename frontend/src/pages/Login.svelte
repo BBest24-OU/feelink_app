@@ -26,6 +26,8 @@
     const result = await authActions.login(email, password);
 
     if (result.success) {
+      // Wait for store to update before redirecting
+      await new Promise(resolve => setTimeout(resolve, 100));
       push('/dashboard');
     } else {
       error = result.error || $t('auth.loginError');

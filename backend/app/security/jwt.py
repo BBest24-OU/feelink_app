@@ -26,6 +26,10 @@ def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta]
     """
     to_encode = data.copy()
 
+    # Convert 'sub' to string if it's an integer (JWT standard requires string)
+    if "sub" in to_encode and isinstance(to_encode["sub"], int):
+        to_encode["sub"] = str(to_encode["sub"])
+
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
@@ -47,6 +51,11 @@ def create_refresh_token(data: Dict[str, Any]) -> str:
         Encoded JWT refresh token string
     """
     to_encode = data.copy()
+
+    # Convert 'sub' to string if it's an integer (JWT standard requires string)
+    if "sub" in to_encode and isinstance(to_encode["sub"], int):
+        to_encode["sub"] = str(to_encode["sub"])
+
     expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire, "type": "refresh"})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -84,10 +93,29 @@ def verify_token(token: str, token_type: str = "access") -> Optional[Dict[str, A
     Returns:
         Decoded payload if valid, None otherwise
     """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    logger.warning(f"[JWT] Verifying token, expecting type: {token_type}")
+    logger.warning(f"[JWT] SECRET_KEY loaded: {SECRET_KEY == 'dev-secret-key-change-in-production'}")
+
     try:
         payload = decode_token(token)
+        logger.warning(f"[JWT] Token decoded successfully. Payload type: {payload.get('type')}, Expected: {token_type}")
+
         if payload.get("type") != token_type:
+            logger.error(f"[JWT] Token type mismatch: got {payload.get('type')}, expected {token_type}")
             return None
+
+        # Convert 'sub' back to int if it's a string
+        if "sub" in payload and isinstance(payload["sub"], str):
+            try:
+                payload["sub"] = int(payload["sub"])
+            except ValueError:
+                logger.error(f"[JWT] Could not convert 'sub' to int: {payload['sub']}")
+                return None
+
         return payload
-    except JWTError:
+    except JWTError as e:
+        logger.error(f"[JWT] Token decode error: {str(e)}")
         return None

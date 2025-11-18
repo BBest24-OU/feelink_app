@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.utils.database import get_db
-from app.schemas import UserRegister, UserLogin, AuthResponse, UserResponse, TokenResponse
+from app.schemas import UserRegister, UserLogin, RefreshTokenRequest, AuthResponse, UserResponse, TokenResponse
 from app.services import UserService
 from app.security import create_access_token, create_refresh_token
 
@@ -92,14 +92,14 @@ async def login(
 
 @router.post("/refresh", response_model=TokenResponse)
 async def refresh_token(
-    refresh_token: str,
+    request: RefreshTokenRequest,
     db: Session = Depends(get_db)
 ):
     """
     Refresh access token using refresh token.
 
     Args:
-        refresh_token: Valid refresh token
+        request: Refresh token request containing refresh_token
         db: Database session
 
     Returns:
@@ -111,7 +111,7 @@ async def refresh_token(
     from app.security import verify_token
 
     # Verify refresh token
-    payload = verify_token(refresh_token, token_type="refresh")
+    payload = verify_token(request.refresh_token, token_type="refresh")
     if not payload:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

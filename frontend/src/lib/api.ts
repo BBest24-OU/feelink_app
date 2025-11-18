@@ -5,6 +5,15 @@ import axios, { type AxiosInstance, type AxiosError } from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
+// Helper function to clear auth state
+function clearAuthState() {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+
+  // Dispatch custom event to notify auth store
+  window.dispatchEvent(new CustomEvent('auth:logout'));
+}
+
 // Create axios instance
 const api: AxiosInstance = axios.create({
   baseURL: API_URL,
@@ -19,6 +28,13 @@ api.interceptors.request.use(
     const token = localStorage.getItem('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+      console.log('[API] Request with token:', {
+        url: config.url,
+        method: config.method,
+        tokenPreview: token.substring(0, 30) + '...'
+      });
+    } else {
+      console.warn('[API] No access token for request:', config.url);
     }
     return config;
   },
@@ -50,10 +66,15 @@ api.interceptors.response.use(
           return api(originalRequest);
         }
       } catch (refreshError) {
-        // Refresh failed, clear tokens and redirect to login
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        window.location.href = '/login';
+        // Refresh failed, clear auth state
+        clearAuthState();
+
+        // Use SPA router instead of hard redirect
+        // This allows the router to handle the redirect properly
+        if (window.location.hash && !window.location.hash.includes('login')) {
+          window.location.hash = '#/login';
+        }
+
         return Promise.reject(refreshError);
       }
     }

@@ -11,6 +11,18 @@
   import { format, subDays, parseISO } from 'date-fns';
 
   onMount(async () => {
+    // Ensure user is authenticated before loading data
+    if (!$authStore.accessToken) {
+      window.location.hash = '/login';
+      return;
+    }
+
+    // Load user profile first to ensure we have user data
+    if (!$authStore.user) {
+      await authActions.loadProfile();
+    }
+
+    // Then load metrics and entries
     await metricsActions.load(false);
     await entriesActions.load({ limit: 100 });
   });

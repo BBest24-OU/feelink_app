@@ -31,6 +31,19 @@ const initialState: AuthState = {
 
 export const authStore = writable<AuthState>(initialState);
 
+// Listen for auth:logout event from API interceptor
+if (typeof window !== 'undefined') {
+  window.addEventListener('auth:logout', () => {
+    authStore.set({
+      user: null,
+      accessToken: null,
+      refreshToken: null,
+      loading: false,
+      error: null,
+    });
+  });
+}
+
 // Derived store for authentication status
 export const isAuthenticated = derived(
   authStore,
@@ -85,10 +98,21 @@ export const authActions = {
 
     try {
       const response = await authApi.login(email, password);
+      console.log('[AUTH] Login response:', response.data);
       const { user, tokens } = response.data;
 
+      // Ensure tokens are valid before saving
+      if (!tokens?.access_token || !tokens?.refresh_token) {
+        throw new Error('Invalid token response from server');
+      }
+
+      console.log('[AUTH] Saving tokens to localStorage');
       localStorage.setItem('access_token', tokens.access_token);
       localStorage.setItem('refresh_token', tokens.refresh_token);
+
+      // Verify tokens were saved
+      const savedToken = localStorage.getItem('access_token');
+      console.log('[AUTH] Token saved successfully:', !!savedToken, savedToken?.substring(0, 30) + '...');
 
       authStore.set({
         user,
@@ -98,8 +122,11 @@ export const authActions = {
         error: null,
       });
 
+      console.log('[AUTH] Auth store updated with user:', user.email);
+
       return { success: true };
     } catch (error: any) {
+      console.error('[AUTH] Login error:', error);
       // Format validation errors from FastAPI
       let errorMsg = 'Login failed';
       if (error.response?.data?.detail) {

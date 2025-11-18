@@ -45,6 +45,11 @@ class UserLogin(BaseModel):
         return v.lower()
 
 
+class RefreshTokenRequest(BaseModel):
+    """Schema for refresh token request"""
+    refresh_token: str
+
+
 class UserUpdate(BaseModel):
     """Schema for updating user profile"""
     language: Optional[str] = Field(None, pattern="^(en|pl)$")

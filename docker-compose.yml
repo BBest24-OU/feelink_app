@@ -40,10 +40,11 @@ services:
       dockerfile: Dockerfile
     container_name: feelink_backend
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgresql://feelink_user:feelink_password@postgres:5432/feelink_db
       REDIS_URL: redis://redis:6379/0
-      SECRET_KEY: ${SECRET_KEY:-dev-secret-key-change-in-production}
       ENVIRONMENT: development
       CORS_ORIGINS: http://localhost:5173,http://localhost:3000
     ports:

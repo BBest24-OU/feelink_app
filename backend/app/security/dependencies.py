@@ -38,18 +38,30 @@ async def get_current_user(
     )
 
     # Verify the token
+    import logging
+    logger = logging.getLogger(__name__)
+
+    logger.warning(f"[AUTH] Token received, preview: {credentials.credentials[:50]}...")
+
     payload = verify_token(credentials.credentials, token_type="access")
     if payload is None:
+        logger.error(f"[AUTH] Token verification FAILED - payload is None")
         raise credentials_exception
 
     # Get user ID from payload
     user_id: Optional[int] = payload.get("sub")
+    logger.warning(f"[AUTH] Token verified. Payload: {payload}, user_id: {user_id}")
+
     if user_id is None:
+        logger.error(f"[AUTH] No 'sub' claim in token payload")
         raise credentials_exception
 
     # Fetch user from database
     user = db.query(User).filter(User.id == user_id, User.deleted_at.is_(None)).first()
+    logger.warning(f"[AUTH] Database user query: found={user is not None}")
+
     if user is None:
+        logger.error(f"[AUTH] User with id {user_id} not found in database")
         raise credentials_exception
 
     return user

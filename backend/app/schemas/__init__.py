@@ -4,6 +4,7 @@ Pydantic schemas for request/response validation
 from .user import (
     UserRegister,
     UserLogin,
+    RefreshTokenRequest,
     UserUpdate,
     UserResponse,
     TokenResponse,
@@ -28,6 +29,7 @@ __all__ = [
     # User schemas
     "UserRegister",
     "UserLogin",
+    "RefreshTokenRequest",
     "UserUpdate",
     "UserResponse",
     "TokenResponse",

@@ -85,7 +85,9 @@ export const dbHelpers = {
   },
 
   async getActiveMetrics(): Promise<DBMetric[]> {
-    return await db.metrics.where('archived').equals(false).toArray();
+    // Use filter instead of where().equals() to avoid WeakMap issues with boolean values
+    const allMetrics = await db.metrics.toArray();
+    return allMetrics.filter((m: DBMetric) => !m.archived);
   },
 
   async getMetricById(id: number): Promise<DBMetric | undefined> {

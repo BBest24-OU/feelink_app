@@ -2,8 +2,9 @@
   import Router from 'svelte-spa-router';
   import { wrap } from 'svelte-spa-router/wrap';
   import { onMount } from 'svelte';
-  import { authActions, isAuthenticated } from './stores/user';
+  import { authActions, authStore, isAuthenticated } from './stores/user';
   import { initI18n } from './i18n';
+  import { get } from 'svelte/store';
 
   // Pages
   import Login from './pages/Login.svelte';
@@ -22,9 +23,11 @@
     // Initialize i18n first
     await initI18n();
 
-    // Try to load user profile if token exists
+    // Try to load user profile if token exists but user is not already loaded
     const token = localStorage.getItem('access_token');
-    if (token) {
+    const currentAuth = get(authStore);
+
+    if (token && !currentAuth.user) {
       await authActions.loadProfile();
     }
     ready = true;
