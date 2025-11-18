@@ -5,6 +5,7 @@
   import type { Metric } from '../stores/metrics';
   import type { Entry } from '../stores/entries';
   import { t } from '../i18n';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Card from '../components/Card.svelte';
   import LineChart from '../components/LineChart.svelte';
   import StatisticsPanel from '../components/StatisticsPanel.svelte';
@@ -90,12 +91,11 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="container mx-auto">
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-800">Insights & Analytics</h1>
-      <p class="text-gray-600 mt-2">Visualize your metrics and discover trends</p>
-    </div>
+<AuthenticatedLayout>
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Insights & Analytics</h1>
+    <p class="text-gray-600 mt-2">Visualize your metrics and discover trends over time.</p>
+  </div>
 
     {#if loading}
       <div class="text-center py-12">
@@ -187,8 +187,7 @@
           <div class="text-center py-12">
             <p class="text-gray-600">Select at least one metric to view insights</p>
           </div>
-        </Card>
-      {/if}
+      </Card>
     {/if}
-  </div>
-</div>
+  {/if}
+</AuthenticatedLayout>

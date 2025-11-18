@@ -3,6 +3,7 @@
   import { entriesStore, entriesActions } from '../stores/entries';
   import { metricsStore } from '../stores/metrics';
   import { t } from '../i18n';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Button from '../components/Button.svelte';
   import Card from '../components/Card.svelte';
   import Loading from '../components/Loading.svelte';
@@ -48,9 +49,12 @@
   }
 </script>
 
-<div class="container mx-auto p-6">
+<AuthenticatedLayout>
   <div class="flex justify-between items-center mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">{$t('entries.title')}</h1>
+    <div>
+      <h1 class="text-3xl font-bold text-gray-800">{$t('entries.title')}</h1>
+      <p class="text-gray-600 mt-2">View and manage all your logged entries.</p>
+    </div>
     <Button variant="primary" on:click={() => window.location.hash = '/log'}>
       + {$t('entries.create')}
     </Button>
@@ -125,12 +129,12 @@
       {/each}
     </div>
 
-    {#if $entriesStore.total > filteredEntries.length}
-      <div class="mt-6 text-center">
-        <Button variant="ghost" on:click={() => entriesActions.load({ limit: 200 })}>
-          Load More
-        </Button>
-      </div>
-    {/if}
+  {#if $entriesStore.total > filteredEntries.length}
+    <div class="mt-6 text-center">
+      <Button variant="ghost" on:click={() => entriesActions.load({ limit: 200 })}>
+        Load More
+      </Button>
+    </div>
   {/if}
-</div>
+  {/if}
+</AuthenticatedLayout>

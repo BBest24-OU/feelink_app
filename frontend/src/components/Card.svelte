@@ -10,7 +10,7 @@
     lg: 'p-8'
   };
 
-  $: classes = `bg-white rounded-lg shadow-md ${paddingClasses[padding]} ${hover ? 'hover:shadow-lg transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2' : ''}`;
+  $: classes = `bg-white rounded-xl shadow-sm border border-gray-100 ${paddingClasses[padding]} ${hover ? 'hover:shadow-md hover:border-gray-200 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2' : 'transition-shadow'}`;
 
   function handleKeyPress(event: KeyboardEvent) {
     if (hover && (event.key === 'Enter' || event.key === ' ')) {

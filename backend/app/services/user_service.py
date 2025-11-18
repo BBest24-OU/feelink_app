@@ -65,15 +65,23 @@ class UserService:
         Returns:
             User object if authentication successful, None otherwise
         """
+        import sys
+        print(f"[AUTH DEBUG] Looking for user with email: {email.lower()}", file=sys.stderr)
+
         user = db.query(User).filter(
             User.email == email.lower(),
             User.deleted_at.is_(None)
         ).first()
 
+        print(f"[AUTH DEBUG] User found: {user is not None}", file=sys.stderr)
+
         if not user:
             return None
 
-        if not verify_password(password, user.password_hash):
+        is_valid = verify_password(password, user.password_hash)
+        print(f"[AUTH DEBUG] Password valid: {is_valid}", file=sys.stderr)
+
+        if not is_valid:
             return None
 
         return user

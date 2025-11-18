@@ -17,8 +17,10 @@
   import Correlations from './pages/Correlations.svelte';
   import Profile from './pages/Profile.svelte';
   import Loading from './components/Loading.svelte';
+  import Onboarding from './components/Onboarding.svelte';
 
   let ready = false;
+  let showOnboarding = false;
 
   onMount(async () => {
     // Initialize i18n first
@@ -32,7 +34,38 @@
       await authActions.loadProfile();
     }
     ready = true;
+
+    // Check if onboarding is needed after loading profile
+    checkOnboarding();
   });
+
+  // Check if we should show onboarding
+  function checkOnboarding() {
+    const currentAuth = get(authStore);
+    console.log('[ONBOARDING] Checking onboarding:', {
+      isAuthenticated: currentAuth.isAuthenticated,
+      hasUser: !!currentAuth.user,
+      userName: currentAuth.user?.name,
+      shouldShow: currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name?.trim()
+    });
+
+    if (currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name?.trim()) {
+      console.log('[ONBOARDING] Showing onboarding modal');
+      showOnboarding = true;
+    }
+  }
+
+  // Subscribe to auth store changes to check onboarding
+  authStore.subscribe((auth) => {
+    if (ready && auth.isAuthenticated && auth.user && !auth.user.name?.trim() && !showOnboarding) {
+      console.log('[ONBOARDING] Auth store changed, showing onboarding');
+      showOnboarding = true;
+    }
+  });
+
+  function handleOnboardingComplete() {
+    showOnboarding = false;
+  }
 
   // Routes configuration
   const routes = {
@@ -79,11 +112,25 @@
   <Loading text="Loading FeelInk..." />
 {:else}
   <Router {routes} on:conditionsFailed={conditionsFailed} />
+
+  {#if showOnboarding}
+    <Onboarding on:complete={handleOnboardingComplete} />
+  {/if}
 {/if}
 
 <style>
+  :global(html),
   :global(body) {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  :global(#app) {
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
 </style>

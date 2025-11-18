@@ -5,6 +5,7 @@
   import { entriesActions, entriesStore } from '../stores/entries';
   import { syncStatus } from '../lib/sync';
   import { t } from '../i18n';
+  import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
   import CalendarHeatmap from '../components/CalendarHeatmap.svelte';
@@ -26,11 +27,6 @@
     await metricsActions.load(false);
     await entriesActions.load({ limit: 100 });
   });
-
-  function handleLogout() {
-    authActions.logout();
-    window.location.hash = '/login';
-  }
 
   function handleDateClick(date: string) {
     window.location.hash = `/log?date=${date}`;
@@ -71,6 +67,13 @@
   })();
 </script>
 
+<AuthenticatedLayout>
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-800">
+      {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0]}!
+    </h2>
+    <p class="text-gray-600 mt-2">Track your well-being and discover meaningful patterns in your life.</p>
+  </div>
 <div class="min-h-screen bg-gray-50">
   <nav class="bg-white shadow-sm border-b border-gray-200">
     <div class="container mx-auto px-6 py-4">
@@ -177,9 +180,8 @@
       </Card>
     </div>
 
-    <Card>
-      <h2 class="text-xl font-bold text-gray-800 mb-4">Entry Calendar</h2>
-      <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />
-    </Card>
-  </div>
-</div>
+  <Card>
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Entry Calendar</h2>
+    <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />
+  </Card>
+</AuthenticatedLayout>

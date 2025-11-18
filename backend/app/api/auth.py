@@ -64,6 +64,9 @@ async def login(
     Raises:
         401: If credentials are invalid
     """
+    import sys
+    print(f"[LOGIN DEBUG] Attempting login for email: {credentials.email}", file=sys.stderr)
+
     # Authenticate user
     user = UserService.authenticate_user(
         db,
@@ -71,7 +74,10 @@ async def login(
         credentials.password
     )
 
+    print(f"[LOGIN DEBUG] Authentication result: user={user}", file=sys.stderr)
+
     if not user:
+        print(f"[LOGIN DEBUG] Login failed for email: {credentials.email}", file=sys.stderr)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password"
