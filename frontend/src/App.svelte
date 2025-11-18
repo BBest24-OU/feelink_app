@@ -42,14 +42,23 @@
   // Check if we should show onboarding
   function checkOnboarding() {
     const currentAuth = get(authStore);
-    if (currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name) {
+    console.log('[ONBOARDING] Checking onboarding:', {
+      isAuthenticated: currentAuth.isAuthenticated,
+      hasUser: !!currentAuth.user,
+      userName: currentAuth.user?.name,
+      shouldShow: currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name?.trim()
+    });
+
+    if (currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name?.trim()) {
+      console.log('[ONBOARDING] Showing onboarding modal');
       showOnboarding = true;
     }
   }
 
   // Subscribe to auth store changes to check onboarding
   authStore.subscribe((auth) => {
-    if (ready && auth.isAuthenticated && auth.user && !auth.user.name && !showOnboarding) {
+    if (ready && auth.isAuthenticated && auth.user && !auth.user.name?.trim() && !showOnboarding) {
+      console.log('[ONBOARDING] Auth store changed, showing onboarding');
       showOnboarding = true;
     }
   });
