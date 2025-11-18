@@ -16,7 +16,9 @@
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 50)",
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 100)",
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose ps)",
-      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 3)"
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 3)",
+      "Bash(npm install)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker exec feelink_frontend npm install)"
     ],
     "deny": [],
     "ask": []
