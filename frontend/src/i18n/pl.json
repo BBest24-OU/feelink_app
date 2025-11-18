@@ -44,7 +44,8 @@
     "insights": "Wnioski",
     "correlations": "Korelacje",
     "settings": "Ustawienia",
-    "export": "Eksport danych"
+    "export": "Eksport danych",
+    "profile": "Profil"
   },
   "dashboard": {
     "title": "Panel główny",
@@ -118,5 +119,26 @@
       "en": "English",
       "pl": "Polski"
     }
+  },
+  "profile": {
+    "title": "Profil",
+    "accountInfo": "Informacje o koncie",
+    "dataSection": "Dane",
+    "dataSectionDescription": "Zarządzaj danymi aplikacji - wygeneruj dane demonstracyjne lub wyczyść istniejące dane.",
+    "demoData": "Dane demo",
+    "demoDataDescription": "Wygeneruj realistyczne dane demonstracyjne za ostatnie 180 dni, aby zobaczyć jak działa aplikacja wypełniona danymi.",
+    "generateDemoData": "Wygeneruj dane demo",
+    "demoDataGenerated": "Dane demonstracyjne wygenerowane pomyślnie! Strona zostanie wkrótce przeładowana.",
+    "demoDataError": "Nie udało się wygenerować danych demonstracyjnych. Spróbuj ponownie.",
+    "clearData": "Wyczyść dane",
+    "clearDataDescription": "Usuń wszystkie metryki i wpisy. Przywróci to konto do stanu początkowego.",
+    "clearAllData": "Wyczyść wszystkie dane",
+    "dataCleared": "Wszystkie dane zostały pomyślnie wyczyszczone! Strona zostanie wkrótce przeładowana.",
+    "clearDataError": "Nie udało się wyczyścić danych. Spróbuj ponownie.",
+    "confirmDemoData": "Wygenerować dane demo?",
+    "confirmDemoDataMessage": "Spowoduje to utworzenie demonstracyjnych metryk i wpisów za ostatnie 180 dni. Istniejące dane zostaną zachowane.",
+    "confirmClearData": "Wyczyścić wszystkie dane?",
+    "confirmClearDataMessage": "Spowoduje to trwałe usunięcie wszystkich Twoich metryk i wpisów.",
+    "clearDataWarning": "Ta operacja jest nieodwracalna!"
   }
 }

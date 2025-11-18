@@ -15,6 +15,7 @@
   import Entries from './pages/Entries.svelte';
   import Insights from './pages/Insights.svelte';
   import Correlations from './pages/Correlations.svelte';
+  import Profile from './pages/Profile.svelte';
   import Loading from './components/Loading.svelte';
 
   let ready = false;
@@ -60,6 +61,10 @@
     }),
     '/correlations': wrap({
       component: Correlations,
+      conditions: [(detail) => $isAuthenticated]
+    }),
+    '/profile': wrap({
+      component: Profile,
       conditions: [(detail) => $isAuthenticated]
     }),
   };
