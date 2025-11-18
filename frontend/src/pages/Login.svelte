@@ -38,8 +38,8 @@
   }
 </script>
 
-<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
-  <div class="w-full max-w-md">
+<div class="min-h-screen bg-gray-50 flex items-center justify-center">
+  <div class="w-full max-w-md px-4 py-8">
     <!-- Logo -->
     <div class="text-center mb-8">
       <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-2xl mb-4">
