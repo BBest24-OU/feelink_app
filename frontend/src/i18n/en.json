@@ -44,7 +44,8 @@
     "insights": "Insights",
     "correlations": "Correlations",
     "settings": "Settings",
-    "export": "Export Data"
+    "export": "Export Data",
+    "profile": "Profile"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -118,5 +119,26 @@
       "en": "English",
       "pl": "Polski"
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "accountInfo": "Account Information",
+    "dataSection": "Data",
+    "dataSectionDescription": "Manage your application data with demo data or clear existing data.",
+    "demoData": "Demo Data",
+    "demoDataDescription": "Generate realistic demo data for the last 180 days to explore how the app works when filled with data.",
+    "generateDemoData": "Generate Demo Data",
+    "demoDataGenerated": "Demo data generated successfully! The page will reload shortly.",
+    "demoDataError": "Failed to generate demo data. Please try again.",
+    "clearData": "Clear Data",
+    "clearDataDescription": "Remove all your metrics and entries. This will restore your account to its initial state.",
+    "clearAllData": "Clear All Data",
+    "dataCleared": "All data cleared successfully! The page will reload shortly.",
+    "clearDataError": "Failed to clear data. Please try again.",
+    "confirmDemoData": "Generate Demo Data?",
+    "confirmDemoDataMessage": "This will create demo metrics and entries for the last 180 days. Any existing data will be preserved.",
+    "confirmClearData": "Clear All Data?",
+    "confirmClearDataMessage": "This will permanently delete all your metrics and entries.",
+    "clearDataWarning": "This action cannot be undone!"
   }
 }
