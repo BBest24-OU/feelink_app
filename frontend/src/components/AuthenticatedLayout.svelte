@@ -1,6 +1,7 @@
 <script lang="ts">
   import Navigation from './Navigation.svelte';
   import { syncStatus } from '../lib/sync';
+  import { AlertCircle } from 'lucide-svelte';
 
   export let maxWidth: 'sm' | 'md' | 'lg' | 'xl' | 'full' = 'xl';
 
@@ -21,7 +22,7 @@
     <div class="bg-amber-50 border-b border-amber-200">
       <div class="container mx-auto px-6 py-2">
         <p class="text-sm text-amber-800 flex items-center space-x-2">
-          <span>⚠️</span>
+          <AlertCircle size={16} />
           <span>You're offline. {$syncStatus.pendingCount} change(s) will sync when you're back online.</span>
         </p>
       </div>

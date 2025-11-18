@@ -2,15 +2,24 @@
   import { location } from 'svelte-spa-router';
   import { authStore, authActions } from '../stores/user';
   import { t } from '../i18n';
+  import {
+    LayoutDashboard,
+    PenLine,
+    FileText,
+    Activity,
+    Lightbulb,
+    Link2,
+    LogOut
+  } from 'lucide-svelte';
 
   // Navigation items
   const navItems = [
-    { path: '/dashboard', label: 'nav.dashboard', icon: '📊' },
-    { path: '/log', label: 'nav.log', icon: '✏️' },
-    { path: '/entries', label: 'nav.entries', icon: '📝' },
-    { path: '/metrics', label: 'nav.metrics', icon: '📈' },
-    { path: '/insights', label: 'nav.insights', icon: '💡' },
-    { path: '/correlations', label: 'nav.correlations', icon: '🔗' },
+    { path: '/dashboard', label: 'nav.dashboard', icon: LayoutDashboard },
+    { path: '/log', label: 'nav.log', icon: PenLine },
+    { path: '/entries', label: 'nav.entries', icon: FileText },
+    { path: '/metrics', label: 'nav.metrics', icon: Activity },
+    { path: '/insights', label: 'nav.insights', icon: Lightbulb },
+    { path: '/correlations', label: 'nav.correlations', icon: Link2 },
   ];
 
   function handleLogout() {
@@ -29,7 +38,7 @@
       <!-- Logo and Brand -->
       <div class="flex items-center space-x-8">
         <a href="#/dashboard" class="flex items-center space-x-2 group">
-          <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform">
+          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform">
             <span class="text-white font-bold text-lg">F</span>
           </div>
           <span class="text-xl font-semibold text-gray-800 tracking-tight">Feelink</span>
@@ -45,7 +54,7 @@
                   ? 'bg-primary-50 text-primary-700'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}"
             >
-              <span class="text-base">{item.icon}</span>
+              <svelte:component this={item.icon} size={18} />
               <span>{$t(item.label)}</span>
             </a>
           {/each}
@@ -55,7 +64,7 @@
       <!-- User Menu -->
       <div class="flex items-center space-x-4">
         <div class="hidden sm:flex items-center space-x-3 px-3 py-2 bg-gray-50 rounded-lg">
-          <div class="w-8 h-8 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full flex items-center justify-center">
+          <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
             <span class="text-white text-sm font-semibold">
               {$authStore.user?.email?.charAt(0).toUpperCase() || 'U'}
             </span>
@@ -67,9 +76,10 @@
 
         <button
           on:click={handleLogout}
-          class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center space-x-2"
         >
-          {$t('auth.logout')}
+          <LogOut size={18} />
+          <span class="hidden sm:inline">{$t('auth.logout')}</span>
         </button>
       </div>
     </div>
@@ -84,7 +94,7 @@
               ? 'bg-primary-50 text-primary-700'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}"
         >
-          <span>{item.icon}</span>
+          <svelte:component this={item.icon} size={16} />
           <span>{$t(item.label)}</span>
         </a>
       {/each}
