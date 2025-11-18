@@ -7,6 +7,7 @@ import { authApi, userApi } from '../lib/api';
 interface User {
   id: number;
   email: string;
+  name?: string;
   language: string;
   timezone: string;
   created_at: string;
@@ -173,7 +174,7 @@ export const authActions = {
   },
 
   // Update user profile
-  async updateProfile(data: { language?: string; timezone?: string }) {
+  async updateProfile(data: { name?: string; language?: string; timezone?: string }) {
     authStore.update((state) => ({ ...state, loading: true }));
 
     try {

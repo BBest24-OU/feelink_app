@@ -52,6 +52,7 @@ class RefreshTokenRequest(BaseModel):
 
 class UserUpdate(BaseModel):
     """Schema for updating user profile"""
+    name: Optional[str] = Field(None, max_length=100)
     language: Optional[str] = Field(None, pattern="^(en|pl)$")
     timezone: Optional[str] = None
 
@@ -60,6 +61,7 @@ class UserResponse(BaseModel):
     """Schema for user response"""
     id: int
     email: str
+    name: Optional[str] = None
     language: str
     timezone: str
     created_at: datetime

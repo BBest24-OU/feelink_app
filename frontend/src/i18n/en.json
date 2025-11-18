@@ -44,6 +44,7 @@
     "metrics": "Metrics",
     "insights": "Insights",
     "correlations": "Correlations",
+    "profile": "Profile",
     "settings": "Settings",
     "export": "Export Data",
     "logout": "Log Out",
@@ -124,5 +125,35 @@
       "en": "English",
       "pl": "Polski"
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage your account settings and preferences",
+    "personalInfo": "Personal Information",
+    "security": "Security",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailReadonly": "Email cannot be changed",
+    "language": "Language",
+    "timezone": "Timezone",
+    "password": "Password",
+    "passwordDescription": "Change your account password",
+    "resetPassword": "Reset Password",
+    "resetPasswordPlaceholder": "Password reset functionality coming soon",
+    "saveChanges": "Save Changes",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "onboarding": {
+    "welcome": "Welcome to Feelink!",
+    "subtitle": "Let's get to know you better",
+    "nameLabel": "What should we call you?",
+    "namePlaceholder": "Your name",
+    "nameHint": "This will be used to personalize your experience",
+    "nameRequired": "Please enter your name",
+    "continue": "Continue",
+    "skip": "Skip for now",
+    "error": "Failed to save your information"
   }
 }

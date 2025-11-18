@@ -17,6 +17,9 @@ class User(Base, TimestampMixin):
     email = Column(String(255), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
 
+    # Profile
+    name = Column(String(100), nullable=True)
+
     # Preferences
     language = Column(
         String(2),

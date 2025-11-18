@@ -15,9 +15,12 @@
   import Entries from './pages/Entries.svelte';
   import Insights from './pages/Insights.svelte';
   import Correlations from './pages/Correlations.svelte';
+  import Profile from './pages/Profile.svelte';
   import Loading from './components/Loading.svelte';
+  import Onboarding from './components/Onboarding.svelte';
 
   let ready = false;
+  let showOnboarding = false;
 
   onMount(async () => {
     // Initialize i18n first
@@ -31,7 +34,29 @@
       await authActions.loadProfile();
     }
     ready = true;
+
+    // Check if onboarding is needed after loading profile
+    checkOnboarding();
   });
+
+  // Check if we should show onboarding
+  function checkOnboarding() {
+    const currentAuth = get(authStore);
+    if (currentAuth.isAuthenticated && currentAuth.user && !currentAuth.user.name) {
+      showOnboarding = true;
+    }
+  }
+
+  // Subscribe to auth store changes to check onboarding
+  authStore.subscribe((auth) => {
+    if (ready && auth.isAuthenticated && auth.user && !auth.user.name && !showOnboarding) {
+      showOnboarding = true;
+    }
+  });
+
+  function handleOnboardingComplete() {
+    showOnboarding = false;
+  }
 
   // Routes configuration
   const routes = {
@@ -62,6 +87,10 @@
       component: Correlations,
       conditions: [(detail) => $isAuthenticated]
     }),
+    '/profile': wrap({
+      component: Profile,
+      conditions: [(detail) => $isAuthenticated]
+    }),
   };
 
   function conditionsFailed(event: any) {
@@ -74,6 +103,10 @@
   <Loading text="Loading FeelInk..." />
 {:else}
   <Router {routes} on:conditionsFailed={conditionsFailed} />
+
+  {#if showOnboarding}
+    <Onboarding on:complete={handleOnboardingComplete} />
+  {/if}
 {/if}
 
 <style>

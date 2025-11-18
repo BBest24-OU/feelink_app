@@ -44,6 +44,7 @@
     "metrics": "Metryki",
     "insights": "Wnioski",
     "correlations": "Korelacje",
+    "profile": "Profil",
     "settings": "Ustawienia",
     "export": "Eksport danych",
     "logout": "Wyloguj",
@@ -124,5 +125,35 @@
       "en": "English",
       "pl": "Polski"
     }
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Zarządzaj ustawieniami konta i preferencjami",
+    "personalInfo": "Informacje osobiste",
+    "security": "Bezpieczeństwo",
+    "name": "Imię",
+    "namePlaceholder": "Wprowadź swoje imię",
+    "email": "Email",
+    "emailReadonly": "Email nie może być zmieniony",
+    "language": "Język",
+    "timezone": "Strefa czasowa",
+    "password": "Hasło",
+    "passwordDescription": "Zmień hasło do konta",
+    "resetPassword": "Resetuj hasło",
+    "resetPasswordPlaceholder": "Funkcja resetowania hasła wkrótce dostępna",
+    "saveChanges": "Zapisz zmiany",
+    "updateSuccess": "Profil zaktualizowany pomyślnie",
+    "updateError": "Nie udało się zaktualizować profilu"
+  },
+  "onboarding": {
+    "welcome": "Witaj w Feelink!",
+    "subtitle": "Poznajmy się lepiej",
+    "nameLabel": "Jak mamy się do Ciebie zwracać?",
+    "namePlaceholder": "Twoje imię",
+    "nameHint": "Użyjemy tego do personalizacji Twojego doświadczenia",
+    "nameRequired": "Proszę wprowadź swoje imię",
+    "continue": "Kontynuuj",
+    "skip": "Pomiń",
+    "error": "Nie udało się zapisać informacji"
   }
 }

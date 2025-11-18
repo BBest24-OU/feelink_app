@@ -13,7 +13,8 @@
     LogOut,
     ChevronLeft,
     ChevronRight,
-    Heart
+    Heart,
+    User
   } from 'lucide-svelte';
 
   export let minimized = false;
@@ -26,7 +27,8 @@
     { path: '/entries', label: 'nav.entries', icon: FileText },
     { path: '/metrics', label: 'nav.metrics', icon: Activity },
     { path: '/insights', label: 'nav.insights', icon: Lightbulb },
-    { path: '/correlations', label: 'nav.correlations', icon: Link2 }
+    { path: '/correlations', label: 'nav.correlations', icon: Link2 },
+    { path: '/profile', label: 'nav.profile', icon: User }
   ];
 
   function isActive(path: string): boolean {
