@@ -45,7 +45,12 @@
     "insights": "Wnioski",
     "correlations": "Korelacje",
     "settings": "Ustawienia",
-    "export": "Eksport danych"
+    "export": "Eksport danych",
+    "logout": "Wyloguj",
+    "minimize": "Minimalizuj",
+    "expand": "Rozwiń",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu"
   },
   "dashboard": {
     "title": "Panel główny",

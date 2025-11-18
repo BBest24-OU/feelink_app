@@ -45,7 +45,12 @@
     "insights": "Insights",
     "correlations": "Correlations",
     "settings": "Settings",
-    "export": "Export Data"
+    "export": "Export Data",
+    "logout": "Log Out",
+    "minimize": "Minimize",
+    "expand": "Expand",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "dashboard": {
     "title": "Dashboard",
