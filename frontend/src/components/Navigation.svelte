@@ -33,8 +33,8 @@
 </script>
 
 <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
-  <div class="container mx-auto px-6">
-    <div class="flex items-center justify-between h-16">
+  <div class="container mx-auto px-3 sm:px-4 md:px-6">
+    <div class="flex items-center justify-between h-14 md:h-16">
       <!-- Logo and Brand -->
       <div class="flex items-center space-x-8">
         <a href="#/dashboard" class="flex items-center space-x-2 group">
@@ -85,16 +85,16 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div class="md:hidden pb-3 flex items-center space-x-1 overflow-x-auto">
+    <div class="md:hidden pb-2 flex items-center gap-1 overflow-x-auto">
       {#each navItems as item}
         <a
           href={`#${item.path}`}
-          class="px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 flex items-center space-x-1 whitespace-nowrap
+          class="px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap min-h-[44px]
             {isActive(item.path)
               ? 'bg-primary-50 text-primary-700'
-              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}"
+              : 'text-gray-600 active:bg-gray-100'}"
         >
-          <svelte:component this={item.icon} size={16} />
+          <svelte:component this={item.icon} size={18} />
           <span>{$t(item.label)}</span>
         </a>
       {/each}

@@ -2,6 +2,7 @@
   import { push } from 'svelte-spa-router';
   import { authActions } from '../stores/user';
   import { t, locale } from '../i18n';
+  import { Heart } from 'lucide-svelte';
   import Button from '../components/Button.svelte';
   import Input from '../components/Input.svelte';
   import Card from '../components/Card.svelte';
@@ -34,11 +35,15 @@
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center p-4">
+<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
   <div class="w-full max-w-md">
+    <!-- Logo -->
     <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-primary-600 mb-2">FeelInk</h1>
-      <p class="text-gray-600">{$t('auth.register')}</p>
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-2xl mb-4">
+        <Heart size={32} class="text-white" />
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-1">Feelink</h1>
+      <p class="text-gray-600 text-sm">{$t('auth.register')}</p>
     </div>
 
     <Card>

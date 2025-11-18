@@ -3,8 +3,8 @@
 ## Overview
 This document defines the visual design system and guidelines for the Feelink application. All developers and designers must follow these guidelines to maintain consistency across the application.
 
-**Last Updated:** 2025-11-18
-**Status:** Active
+**Last Updated:** 2025-11-18 (Mobile-First Update)
+**Status:** Active - Mobile-First Priority
 
 ---
 
@@ -37,6 +37,40 @@ Feelink follows a **minimalist, clean, and professional** design approach that p
 - Never use emoji, custom SVGs, or other icon libraries
 - Consistent icon sizing: 16px (mobile), 18px (desktop), 20-24px (large actions)
 - Icons should always have semantic meaning
+
+### 4. Mobile-First Approach 📱
+**CRITICAL: Feelink is primarily a mobile application. All design and development must prioritize mobile devices.**
+
+#### Why Mobile-First?
+- Users will primarily access Feelink on their smartphones
+- PWA (Progressive Web App) optimized for mobile experience
+- Touch interactions and mobile gestures are primary input methods
+- Limited screen space requires thoughtful design decisions
+
+#### Mobile-First Principles:
+- **Design for mobile screens first, then scale up to desktop**
+- Optimize for touch interactions (minimum 44px touch targets)
+- Reduce padding/margins on mobile to maximize screen real estate
+- Use responsive breakpoints: mobile (default) → sm → md → lg
+- Test on actual mobile devices, not just browser dev tools
+- Prioritize essential features on small screens
+- Use bottom navigation or sticky headers for easy thumb access
+- Minimize text input requirements
+- Optimize loading times for mobile networks
+
+#### Touch Target Guidelines:
+```css
+Minimum touch target: 44px x 44px (Apple HIG)
+Recommended: 48px x 48px (Material Design)
+Spacing between targets: 8px minimum
+```
+
+#### Mobile Spacing:
+```css
+Mobile (default):  px-3 py-2
+Tablet (sm):       px-4 py-3
+Desktop (md+):     px-6 py-4
+```
 
 ---
 
@@ -263,22 +297,49 @@ hover:text-gray-900 hover:bg-gray-50
 
 ## 📱 Responsive Design
 
+**Remember: Mobile-first means designing for small screens first, then enhancing for larger screens.**
+
 ### Breakpoints
 ```
-sm:  640px   /* Small devices */
-md:  768px   /* Medium devices */
-lg:  1024px  /* Large devices */
-xl:  1280px  /* Extra large devices */
+Default:  0-639px    /* Mobile (default, no prefix) */
+sm:       640px+     /* Small tablets */
+md:       768px+     /* Tablets & small desktops */
+lg:       1024px+    /* Desktops */
+xl:       1280px+    /* Large desktops */
 ```
 
 ### Mobile-First Approach
 ```svelte
-<!-- Base styles apply to mobile -->
-<div class="text-sm md:text-base lg:text-lg">
+<!-- ✅ CORRECT: Base styles for mobile, enhance for larger screens -->
+<div class="text-sm md:text-base lg:text-lg px-3 md:px-6">
 
-<!-- Show/hide based on screen size -->
+<!-- ✅ CORRECT: Show/hide based on screen size -->
 <div class="hidden md:block">Desktop only</div>
 <div class="md:hidden">Mobile only</div>
+
+<!-- ✅ CORRECT: Mobile-first spacing -->
+<div class="py-2 md:py-4 lg:py-6">
+
+<!-- ❌ WRONG: Don't start with desktop styles -->
+<div class="text-lg md:text-sm">
+```
+
+### Common Patterns
+```svelte
+<!-- Navigation -->
+<nav class="h-14 md:h-16">  <!-- Shorter on mobile -->
+
+<!-- Padding -->
+<div class="px-3 sm:px-4 md:px-6">  <!-- Less padding on mobile -->
+
+<!-- Touch targets -->
+<button class="min-h-[44px] px-4 py-2.5">  <!-- 44px minimum for touch -->
+
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">  <!-- Single column on mobile -->
+
+<!-- Text size -->
+<h1 class="text-2xl md:text-3xl">  <!-- Smaller on mobile -->
 ```
 
 ---
