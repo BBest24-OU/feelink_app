@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(docker exec:*)",
+      "Bash(docker logs:*)",
+      "Bash(lsof:*)",
+      "Bash(docker ps:*)",
+      "Bash(chmod:*)",
+      "Bash(./test_auth.sh:*)",
+      "Bash(curl:*)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose restart backend)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose config)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker logs feelink_backend --tail 30)",
+      "Bash(docker compose logs:*)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 50)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 100)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose ps)",
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker compose logs backend --tail 3)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

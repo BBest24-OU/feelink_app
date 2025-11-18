@@ -81,6 +81,14 @@ FeelInk transforms mental health tracking from a chore into a powerful diagnosti
 
 ## 📚 Documentation
 
+### 🛠️ Setup & Deployment
+
+| Document | Description |
+|----------|-------------|
+| [SETUP.md](/SETUP.md) | **Complete setup guide with troubleshooting** |
+
+### 📖 Project Documentation
+
 Comprehensive documentation is available in the [`/docs`](/docs) directory:
 
 | Document | Description |
@@ -113,14 +121,14 @@ FeelInk is developed with the help of **18 specialized AI agents**, each with sp
 
 ## 🚀 Quick Start
 
-> **Note**: FeelInk is currently in active development (MVP Phase). The following instructions will be updated as the project progresses.
+> **Note**: FeelInk is currently in active development (MVP Phase).
 
 ### Prerequisites
 
 - **Node.js** 18+ (for frontend)
 - **Python** 3.11+ (for backend)
 - **PostgreSQL** 14+ (for database)
-- **Docker** (optional, for containerized development)
+- **Docker** (recommended, for containerized development)
 
 ### Development Setup
 
@@ -134,11 +142,16 @@ cd feelink_app
 # Start all services
 docker-compose up -d
 
+# ⚠️ IMPORTANT: Run database migrations (first time only)
+docker exec feelink_backend alembic upgrade head
+
 # Access the application
 # Frontend: http://localhost:5173
 # Backend API: http://localhost:8000
 # API Docs: http://localhost:8000/docs
 ```
+
+> 📖 **For detailed setup instructions, troubleshooting, and manual setup:** See [SETUP.md](/SETUP.md)
 
 #### Option 2: Manual Setup
 
