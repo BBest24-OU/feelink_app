@@ -39,9 +39,9 @@
     dispatch('close');
   }
 
-  async function handleLogout() {
-    await authActions.logout();
-    close();
+  function handleLogout() {
+    authActions.logout();
+    // No need to close drawer as logout redirects to login page
   }
 
   function handleBackdropClick() {

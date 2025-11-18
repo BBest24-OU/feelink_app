@@ -145,7 +145,10 @@ export const authActions = {
 
   // Logout user
   logout() {
-    authApi.logout();
+    // Clear local storage and auth state
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+
     authStore.set({
       user: null,
       accessToken: null,
@@ -153,6 +156,11 @@ export const authActions = {
       loading: false,
       error: null,
     });
+
+    // Redirect to login page
+    if (typeof window !== 'undefined') {
+      window.location.hash = '#/login';
+    }
   },
 
   // Load user profile

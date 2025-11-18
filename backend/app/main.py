@@ -1,11 +1,22 @@
 """
 FeelInk Backend - Main Application Entry Point
 """
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
 from app.api import auth_router, users_router, metrics_router, entries_router, analytics_router
+from app.utils.database import init_db
+
+# Lifespan context manager for startup/shutdown events
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Initialize database
+    init_db()
+    yield
+    # Shutdown: Cleanup if needed
+    pass
 
 # Create FastAPI application
 app = FastAPI(
@@ -14,6 +25,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # Configure CORS
