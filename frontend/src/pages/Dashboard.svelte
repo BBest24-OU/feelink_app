@@ -95,6 +95,9 @@
           <a href="#/correlations" class="text-gray-700 hover:text-primary-600 font-medium">
             Correlations
           </a>
+          <a href="#/profile" class="text-gray-700 hover:text-primary-600 font-medium">
+            {$t('nav.profile')}
+          </a>
           <Button size="sm" variant="ghost" on:click={handleLogout}>
             {$t('auth.logout')}
           </Button>
