@@ -29,27 +29,31 @@
     </div>
   {/if}
 
-  <main class="container mx-auto px-3 sm:px-4 md:px-6 py-4 md:py-6 {maxWidthClasses[maxWidth]}">
-    <slot />
+  <main class="w-full px-3 sm:px-4 md:px-6 py-4 md:py-6 pb-20 md:pb-6">
+    <div class="mx-auto {maxWidthClasses[maxWidth]}">
+      <slot />
+    </div>
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-gray-200 bg-white mt-8 md:mt-12">
-    <div class="container mx-auto px-3 sm:px-4 md:px-6 py-4 md:py-6">
-      <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
-        <p class="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
-          © {new Date().getFullYear()} Feelink. Track your well-being.
-        </p>
-        <div class="flex items-center space-x-4 text-xs sm:text-sm text-gray-500">
-          <span class="flex items-center space-x-1">
-            {#if $syncStatus.isOnline}
-              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>Online</span>
-            {:else}
-              <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
-              <span>Offline</span>
-            {/if}
-          </span>
+  <footer class="border-t border-gray-200 bg-white mt-8 md:mt-12 mb-16 md:mb-0">
+    <div class="w-full px-3 sm:px-4 md:px-6 py-4 md:py-6">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+          <p class="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
+            © {new Date().getFullYear()} Feelink. Track your well-being.
+          </p>
+          <div class="flex items-center space-x-4 text-xs sm:text-sm text-gray-500">
+            <span class="flex items-center space-x-1">
+              {#if $syncStatus.isOnline}
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span>Online</span>
+              {:else}
+                <span class="w-2 h-2 bg-gray-400 rounded-full"></span>
+                <span>Offline</span>
+              {/if}
+            </span>
+          </div>
         </div>
       </div>
     </div>

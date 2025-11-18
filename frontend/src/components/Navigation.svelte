@@ -32,9 +32,10 @@
   }
 </script>
 
+<!-- Top Navigation Bar -->
 <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
-  <div class="container mx-auto px-3 sm:px-4 md:px-6">
-    <div class="flex items-center justify-between h-14 md:h-16">
+  <div class="w-full px-3 sm:px-4 md:px-6">
+    <div class="flex items-center justify-between h-14 md:h-16 max-w-7xl mx-auto">
       <!-- Logo and Brand -->
       <div class="flex items-center space-x-8">
         <a href="#/dashboard" class="flex items-center space-x-2 group">
@@ -44,7 +45,7 @@
           <span class="text-xl font-semibold text-gray-800 tracking-tight">Feelink</span>
         </a>
 
-        <!-- Main Navigation -->
+        <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-1">
           {#each navItems as item}
             <a
@@ -62,7 +63,7 @@
       </div>
 
       <!-- User Menu -->
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-2 sm:space-x-4">
         <div class="hidden sm:flex items-center space-x-3 px-3 py-2 bg-gray-50 rounded-lg">
           <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
             <span class="text-white text-sm font-semibold">
@@ -76,48 +77,37 @@
 
         <button
           on:click={handleLogout}
-          class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center space-x-2"
+          class="px-2 sm:px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center space-x-2"
         >
           <LogOut size={18} />
           <span class="hidden sm:inline">{$t('auth.logout')}</span>
         </button>
       </div>
     </div>
+  </div>
+</nav>
 
-    <!-- Mobile Navigation -->
-    <div class="md:hidden pb-2 flex items-center gap-1 overflow-x-auto">
-      {#each navItems as item}
-        <a
-          href={`#${item.path}`}
-          class="px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap min-h-[44px]
-            {isActive(item.path)
-              ? 'bg-primary-50 text-primary-700'
-              : 'text-gray-600 active:bg-gray-100'}"
-        >
-          <svelte:component this={item.icon} size={18} />
-          <span>{$t(item.label)}</span>
-        </a>
-      {/each}
-    </div>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 safe-area-bottom">
+  <div class="grid grid-cols-5 h-16">
+    {#each navItems.slice(0, 5) as item}
+      <a
+        href={`#${item.path}`}
+        class="flex flex-col items-center justify-center space-y-1 transition-colors min-h-[64px]
+          {isActive(item.path)
+            ? 'text-primary-600'
+            : 'text-gray-600 active:bg-gray-50'}"
+      >
+        <svelte:component this={item.icon} size={22} strokeWidth={isActive(item.path) ? 2.5 : 2} />
+        <span class="text-[10px] font-medium">{$t(item.label)}</span>
+      </a>
+    {/each}
   </div>
 </nav>
 
 <style>
-  /* Custom scrollbar for mobile navigation */
-  .overflow-x-auto::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .overflow-x-auto::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .overflow-x-auto::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 2px;
-  }
-
-  .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+  /* Safe area for iOS devices with notch/home indicator */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 </style>
