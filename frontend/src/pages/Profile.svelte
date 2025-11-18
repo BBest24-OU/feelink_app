@@ -13,6 +13,8 @@
   let error: string | null = null;
   let success: string | null = null;
 
+  console.log('[Profile] Module loaded - script running');
+
   onMount(async () => {
     console.log('[Profile] Component mounted');
     if (!$authStore.accessToken) {
@@ -27,6 +29,7 @@
   });
 
   async function handleGenerateDemoData() {
+    console.log('[Profile] Starting demo data generation');
     showDemoConfirmModal = false;
     isGeneratingDemo = true;
     error = null;
@@ -47,6 +50,7 @@
       }
 
       const result = await response.json();
+      console.log('[Profile] Demo data generated:', result);
       success = $t('profile.demoDataGenerated');
 
       // Reload the page after a short delay to show the data
@@ -54,6 +58,7 @@
         window.location.reload();
       }, 2000);
     } catch (err: any) {
+      console.error('[Profile] Error generating demo data:', err);
       error = err.message || $t('profile.demoDataError');
     } finally {
       isGeneratingDemo = false;
@@ -61,6 +66,7 @@
   }
 
   async function handleClearData() {
+    console.log('[Profile] Starting data clear');
     showClearConfirmModal = false;
     isClearingData = true;
     error = null;
@@ -80,6 +86,7 @@
         throw new Error(errorData.detail || 'Failed to clear data');
       }
 
+      console.log('[Profile] Data cleared successfully');
       success = $t('profile.dataCleared');
 
       // Reload the page after a short delay
@@ -87,6 +94,7 @@
         window.location.reload();
       }, 2000);
     } catch (err: any) {
+      console.error('[Profile] Error clearing data:', err);
       error = err.message || $t('profile.clearDataError');
     } finally {
       isClearingData = false;
@@ -100,6 +108,7 @@
 </script>
 
 <div class="min-h-screen bg-gray-50">
+  <!-- Navigation -->
   <nav class="bg-white shadow-sm border-b border-gray-200">
     <div class="container mx-auto px-6 py-4">
       <div class="flex justify-between items-center">
@@ -134,11 +143,15 @@
     </div>
   </nav>
 
+  <!-- Main Content -->
   <div class="container mx-auto p-6 max-w-4xl">
+    <!-- Page Title -->
     <div class="mb-8">
       <h2 class="text-3xl font-bold text-gray-800">{$t('profile.title')}</h2>
+      <p class="text-sm text-gray-500 mt-2">You are on the Profile page</p>
     </div>
 
+    <!-- Error/Success Messages -->
     {#if error}
       <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
         <p class="text-red-700">{error}</p>
@@ -173,10 +186,7 @@
 
       <!-- Data Section -->
       <Card>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">
-          {$t('profile.dataSection')}
-          <!-- Debug: Section is rendering -->
-        </h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{$t('profile.dataSection')}</h3>
         <p class="text-gray-600 mb-6">{$t('profile.dataSectionDescription')}</p>
 
         <div class="space-y-4">
@@ -184,42 +194,40 @@
           <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.demoData')}</h4>
             <p class="text-sm text-gray-600 mb-4">{$t('profile.demoDataDescription')}</p>
-            <p class="text-xs text-gray-500 mb-2">Debug: Button should appear below</p>
-            <Button
+            <button
               on:click={() => {
                 console.log('[Profile] Demo data button clicked');
                 showDemoConfirmModal = true;
               }}
-              variant="primary"
               disabled={isGeneratingDemo || isClearingData}
+              class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-colors"
             >
               {#if isGeneratingDemo}
                 {$t('common.loading')}
               {:else}
                 {$t('profile.generateDemoData')}
               {/if}
-            </Button>
+            </button>
           </div>
 
           <!-- Clear Data Section -->
           <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
             <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.clearData')}</h4>
             <p class="text-sm text-gray-600 mb-4">{$t('profile.clearDataDescription')}</p>
-            <p class="text-xs text-gray-500 mb-2">Debug: Button should appear below</p>
-            <Button
+            <button
               on:click={() => {
                 console.log('[Profile] Clear data button clicked');
                 showClearConfirmModal = true;
               }}
-              variant="danger"
               disabled={isGeneratingDemo || isClearingData}
+              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-colors"
             >
               {#if isClearingData}
                 {$t('common.loading')}
               {:else}
                 {$t('profile.clearAllData')}
               {/if}
-            </Button>
+            </button>
           </div>
         </div>
       </Card>
@@ -263,6 +271,3 @@
     </div>
   </Modal>
 {/if}
-
-<style>
-</style>
