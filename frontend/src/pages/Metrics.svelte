@@ -123,60 +123,55 @@
   async function handleUnarchive(id: number) {
     await metricsActions.unarchive(id);
   }
-
-  function getCategoryColor(category: string): string {
-    const colors: Record<string, string> = {
-      physical: 'bg-blue-100 text-blue-800',
-      psychological: 'bg-purple-100 text-purple-800',
-      triggers: 'bg-red-100 text-red-800',
-      medications: 'bg-green-100 text-green-800',
-      selfcare: 'bg-yellow-100 text-yellow-800',
-      wellness: 'bg-indigo-100 text-indigo-800',
-      notes: 'bg-gray-100 text-gray-800'
-    };
-    return colors[category] || 'bg-gray-100 text-gray-800';
-  }
 </script>
 
 <AuthenticatedLayout>
-  <div class="flex justify-between items-center mb-8">
-    <div>
-      <h1 class="text-3xl font-bold text-gray-800 dark:text-white">{$t('metrics.title')}</h1>
-      <p class="text-gray-600 dark:text-gray-400 mt-2">Create and manage your custom tracking metrics.</p>
-    </div>
-    <Button variant="primary" on:click={openCreateModal}>
-      <div class="flex items-center gap-2">
-        <Plus size={20} />
-        <span>{$t('metrics.create')}</span>
+  <div class="mb-12">
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-1">
+          {$t('metrics.title')}
+        </h1>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          Create and manage your custom tracking metrics.
+        </p>
       </div>
-    </Button>
-  </div>
-
-  <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <Input
-      type="text"
-      placeholder={$t('common.search')}
-      bind:value={searchQuery}
-    />
-
-    <Select
-      bind:value={selectedCategory}
-      options={categoryOptions}
-      label={$t('metrics.category')}
-    />
-
-    <div class="flex items-end">
-      <label class="flex items-center space-x-2 cursor-pointer">
-        <input
-          type="checkbox"
-          bind:checked={showArchived}
-          on:change={() => metricsActions.load(showArchived)}
-          class="w-4 h-4 text-primary-600 dark:text-primary-500 rounded focus:ring-primary-500 dark:focus:ring-primary-400"
-        />
-        <span class="text-sm text-gray-700 dark:text-gray-300">{$t('metrics.showArchived')}</span>
-      </label>
+      <Button variant="primary" size="sm" on:click={openCreateModal}>
+        <div class="flex items-center gap-2">
+          <Plus size={16} />
+          <span>{$t('metrics.create')}</span>
+        </div>
+      </Button>
     </div>
   </div>
+
+  <Card>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <Input
+        type="text"
+        placeholder={$t('common.search')}
+        bind:value={searchQuery}
+      />
+
+      <Select
+        bind:value={selectedCategory}
+        options={categoryOptions}
+        label={$t('metrics.category')}
+      />
+
+      <div class="flex items-end">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input
+            type="checkbox"
+            bind:checked={showArchived}
+            on:change={() => metricsActions.load(showArchived)}
+            class="w-4 h-4 text-primary-600 dark:text-primary-500 rounded focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
+          />
+          <span class="text-sm text-gray-700 dark:text-gray-300">{$t('metrics.showArchived')}</span>
+        </label>
+      </div>
+    </div>
+  </Card>
 
   {#if $metricsStore.loading}
     <Loading />
@@ -187,36 +182,36 @@
   {:else}
     <div class="space-y-6">
       {#each Object.entries(groupedMetrics) as [category, metrics]}
-        <div>
-          <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">
-            {$t(`metrics.categories.${category}`)} ({metrics.length})
+        <Card>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            {$t(`metrics.categories.${category}`)} <span class="text-sm font-normal text-gray-600 dark:text-gray-400">({metrics.length})</span>
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="space-y-3">
             {#each metrics as metric}
-              <Card hover>
+              <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                 <div class="flex justify-between items-start mb-2">
                   <div class="flex items-center space-x-2">
                     {#if metric.color}
-                      <div class="w-4 h-4 rounded-full" style="background-color: {metric.color}"></div>
+                      <div class="w-3 h-3 rounded-full" style="background-color: {metric.color}"></div>
                     {/if}
-                    <h3 class="font-semibold text-gray-800 dark:text-white">{metric.name_key}</h3>
+                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">{metric.name_key}</h3>
                   </div>
-                  <span class="text-xs px-2 py-1 rounded-full {getCategoryColor(metric.category)}">
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded">
                     {$t(`metrics.types.${metric.value_type}`)}
                   </span>
                 </div>
 
                 {#if metric.description}
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{metric.description}</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400 mb-3 ml-5">{metric.description}</p>
                 {/if}
 
                 {#if metric.value_type === 'range' && metric.min_value !== null && metric.max_value !== null}
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                  <p class="text-xs text-gray-500 dark:text-gray-500 mb-3 ml-5">
                     Range: {metric.min_value} - {metric.max_value}
                   </p>
                 {/if}
 
-                <div class="flex space-x-2">
+                <div class="flex space-x-2 ml-5">
                   <Button size="sm" variant="ghost" on:click={() => openEditModal(metric)}>
                     {$t('common.edit')}
                   </Button>
@@ -230,12 +225,12 @@
                     </Button>
                   {/if}
                 </div>
-              </Card>
+              </div>
             {/each}
           </div>
-        </div>
-    {/each}
-  </div>
+        </Card>
+      {/each}
+    </div>
   {/if}
 </AuthenticatedLayout>
 
