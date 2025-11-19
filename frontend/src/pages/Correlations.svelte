@@ -6,10 +6,10 @@
   import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
-  import CorrelationMatrix from '../components/CorrelationMatrix.svelte';
-  import ScatterPlot from '../components/ScatterPlot.svelte';
+  import EChart from '../components/EChart.svelte';
+  import type { EChartsOption } from 'echarts';
   import { subDays, format } from 'date-fns';
-  import { TrendingUp, TrendingDown, Minus as MinusIcon, Sparkles, Settings, Info, BarChart3, Clock, AlertTriangle } from 'lucide-svelte';
+  import { TrendingUp, TrendingDown, Minus as MinusIcon } from 'lucide-svelte';
 
   interface Correlation {
     metric_1_id: number;
@@ -39,7 +39,7 @@
 
   // Selected correlation for scatter plot
   let selectedCorrelation: Correlation | null = null;
-  let scatterData: Array<{ x: number; y: number }> = [];
+  let scatterChartOption: EChartsOption | null = null;
 
   onMount(async () => {
     await metricsActions.load(false);
@@ -79,47 +79,31 @@
     if (minStrength === 'all') return true;
     if (minStrength === 'strong') return corr.strength === 'strong';
     if (minStrength === 'moderate') return ['moderate', 'strong'].includes(corr.strength);
-    return true; // weak includes all
+    return true;
   });
 
   function getInterpretation(corr: Correlation): string {
-    let interpretation = '';
+    let parts: string[] = [];
 
-    if (corr.strength === 'strong') {
-      interpretation = 'Strong ';
-    } else if (corr.strength === 'moderate') {
-      interpretation = 'Moderate ';
-    } else {
-      interpretation = 'Weak ';
+    if (corr.direction === 'positive' && corr.significant) {
+      parts.push(`When ${corr.metric_1_name} increases, ${corr.metric_2_name} tends to increase.`);
+    } else if (corr.direction === 'negative' && corr.significant) {
+      parts.push(`When ${corr.metric_1_name} increases, ${corr.metric_2_name} tends to decrease.`);
     }
-
-    interpretation += corr.direction + ' correlation ';
-    interpretation += `(r=${corr.coefficient.toFixed(2)}, `;
-    interpretation += corr.significant ? `p=${corr.p_value.toFixed(3)}` : 'not significant';
-    interpretation += ') ';
-
-    interpretation += `between ${corr.metric_1_name} and ${corr.metric_2_name}.`;
 
     if (corr.lag > 0) {
-      interpretation += ` ${corr.metric_1_name} shows effects on ${corr.metric_2_name} after ${corr.lag} day${corr.lag > 1 ? 's' : ''}.`;
+      parts.push(`Effects appear after ${corr.lag} day${corr.lag > 1 ? 's' : ''}.`);
     }
 
-    // Add plain-language meaning
-    if (corr.direction === 'positive' && corr.significant) {
-      interpretation += ` When ${corr.metric_1_name} increases, ${corr.metric_2_name} tends to increase.`;
-    } else if (corr.direction === 'negative' && corr.significant) {
-      interpretation += ` When ${corr.metric_1_name} increases, ${corr.metric_2_name} tends to decrease.`;
-    }
-
-    return interpretation;
+    return parts.join(' ');
   }
 
   async function selectCorrelation(corr: Correlation) {
     selectedCorrelation = corr;
 
-    // Prepare scatter plot data
+    // Prepare scatter plot data for ECharts
     const entries = $entriesStore.entries;
-    const points: Array<{ x: number; y: number }> = [];
+    const points: [number, number][] = [];
 
     for (const entry of entries) {
       const value1 = entry.values.find((v) => v.metric_id === corr.metric_1_id);
@@ -130,48 +114,77 @@
         const y = value2.value_numeric ?? (value2.value_boolean ? 1 : 0);
 
         if (x !== null && y !== null) {
-          points.push({ x, y });
+          points.push([x, y]);
         }
       }
     }
 
-    scatterData = points;
-  }
-
-  function getStrengthColor(strength: string): string {
-    if (strength === 'strong') return 'text-green-600';
-    if (strength === 'moderate') return 'text-yellow-600';
-    return 'text-gray-500';
+    // Create ECharts option
+    scatterChartOption = {
+      grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '15%',
+        top: '10%',
+      },
+      xAxis: {
+        name: corr.metric_1_name,
+        nameLocation: 'middle',
+        nameGap: 30,
+        type: 'value',
+      },
+      yAxis: {
+        name: corr.metric_2_name,
+        nameLocation: 'middle',
+        nameGap: 40,
+        type: 'value',
+      },
+      series: [
+        {
+          type: 'scatter',
+          data: points,
+          symbolSize: 8,
+          itemStyle: {
+            color: '#3b82f6',
+            opacity: 0.6,
+          },
+        },
+      ],
+      tooltip: {
+        trigger: 'item',
+        formatter: (params: any) => {
+          return `${corr.metric_1_name}: ${params.value[0]}<br/>${corr.metric_2_name}: ${params.value[1]}`;
+        },
+      },
+    };
   }
 </script>
 
 <AuthenticatedLayout>
-  <!-- Enhanced Header -->
-  <div class="mb-8 animate-slide-down">
-    <div class="flex items-center gap-3 mb-3">
-      <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-glow">
-        <BarChart3 class="text-white" size={28} />
-      </div>
-      <div>
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">Correlations Analysis</h1>
-        <p class="text-gray-600 dark:text-gray-400 mt-1 text-lg">Discover meaningful relationships between your tracked metrics.</p>
-      </div>
-    </div>
+  <!-- Minimal Header -->
+  <div class="mb-12">
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-1">
+      Correlations Analysis
+    </h1>
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      Discover meaningful relationships between your tracked metrics.
+    </p>
   </div>
 
-  <!-- Controls -->
-  <Card gradient={true}>
-    <div class="flex items-center gap-3 mb-6">
-      <Settings size={24} class="text-primary-600 dark:text-primary-400" />
-      <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Analysis Settings</h2>
-    </div>
+  <!-- Analysis Settings -->
+  <Card>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+      Analysis Settings
+    </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
       <div>
-        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Date Range</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Date Range
+        </label>
         <select
           bind:value={dateRange}
-          class="w-full px-5 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-base font-medium dark:bg-gray-700 dark:text-white"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
         >
           <option value="30d">Last 30 days</option>
           <option value="90d">Last 90 days</option>
@@ -180,10 +193,12 @@
       </div>
 
       <div>
-        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Algorithm</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Algorithm
+        </label>
         <select
           bind:value={algorithm}
-          class="w-full px-5 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-base font-medium dark:bg-gray-700 dark:text-white"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
         >
           <option value="pearson">Pearson (linear)</option>
           <option value="spearman">Spearman (rank)</option>
@@ -192,28 +207,30 @@
       </div>
 
       <div>
-        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Maximum Lag (days)</label>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Maximum Lag (days)
+        </label>
         <input
           type="number"
           bind:value={maxLag}
           min="0"
           max="30"
-          class="w-full px-5 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-base font-semibold dark:bg-gray-700 dark:text-white"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
         />
       </div>
     </div>
 
-    <div class="flex flex-wrap gap-6 mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-      <label class="flex items-center cursor-pointer group">
-        <input type="checkbox" bind:checked={onlySignificant} class="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500 mr-3" />
-        <span class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Only statistically significant (p &lt; 0.05)</span>
+    <div class="flex flex-wrap gap-4 items-center mb-6">
+      <label class="flex items-center cursor-pointer">
+        <input type="checkbox" bind:checked={onlySignificant} class="w-4 h-4 text-primary-600 rounded focus:ring-2 focus:ring-primary-500 mr-2" />
+        <span class="text-sm text-gray-700 dark:text-gray-300">Only significant (p &lt; 0.05)</span>
       </label>
 
-      <div class="flex items-center gap-3">
-        <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Minimum strength:</span>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-700 dark:text-gray-300">Minimum strength:</span>
         <select
           bind:value={minStrength}
-          class="px-4 py-2 border-2 border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-medium dark:bg-gray-700 dark:text-white"
+          class="px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white"
         >
           <option value="all">All</option>
           <option value="weak">Weak+</option>
@@ -223,53 +240,39 @@
       </div>
     </div>
 
-    <Button on:click={loadCorrelations} disabled={loading} variant="gradient" size="lg">
-      {#if loading}
-        <div class="flex items-center gap-2">
-          <div class="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
-          <span>Analyzing...</span>
-        </div>
-      {:else}
-        <div class="flex items-center gap-2">
-          <Sparkles size={20} />
-          <span>Run Analysis</span>
-        </div>
-      {/if}
+    <Button on:click={loadCorrelations} disabled={loading} variant="primary">
+      {loading ? 'Analyzing...' : 'Run Analysis'}
     </Button>
   </Card>
 
-    {#if error}
-      <Card>
-        <div class="text-red-600 dark:text-red-400 p-4">
-          {error}
-        </div>
-      </Card>
-    {/if}
+  {#if error}
+    <Card>
+      <p class="text-sm text-red-600 dark:text-red-400">{error}</p>
+    </Card>
+  {/if}
 
-    {#if loading}
+  {#if loading}
+    <div class="text-center py-12">
+      <div class="inline-block animate-spin w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full"></div>
+      <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">Analyzing correlations...</p>
+    </div>
+  {:else if filteredCorrelations.length === 0 && !error}
+    <Card>
       <div class="text-center py-12">
-        <div class="inline-block animate-spin w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full"></div>
-        <p class="mt-4 text-gray-600 dark:text-gray-400">Analyzing correlations...</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          No correlations found. Try adjusting your filters or logging more data.
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-500">
+          Minimum 7 data points required per metric.
+        </p>
       </div>
-    {:else if filteredCorrelations.length === 0 && !error}
-      <Card>
-        <div class="text-center py-12">
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            No correlations found. Try adjusting your filters or logging more data.
-          </p>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Minimum 7 data points required per metric for correlation analysis.
-          </p>
-        </div>
-      </Card>
-    {:else}
-      <!-- Correlation Matrix -->
-      <div class="mt-6">
-        <Card>
-          <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Correlation Matrix</h2>
-          <CorrelationMatrix correlations={filteredCorrelations} />
-        </Card>
-      </div>
+    </Card>
+  {:else}
+    <!-- Correlations List -->
+    <Card>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+        {filteredCorrelations.length} Correlation{filteredCorrelations.length !== 1 ? 's' : ''} Found
+      </h2>
 
       <!-- Correlations List -->
       <div class="mt-6">
@@ -348,78 +351,96 @@
                   </div>
 
                   <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+
+      <div class="space-y-3">
+        {#each filteredCorrelations as corr}
+          <div
+            on:click={() => selectCorrelation(corr)}
+            class="p-4 border rounded-lg cursor-pointer transition-colors"
+            class:border-primary-500={selectedCorrelation === corr}
+            class:dark:border-primary-400={selectedCorrelation === corr}
+            class:border-gray-200={selectedCorrelation !== corr}
+            class:dark:border-gray-700={selectedCorrelation !== corr}
+            class:hover:border-gray-300={selectedCorrelation !== corr}
+            class:dark:hover:border-gray-600={selectedCorrelation !== corr}
+          >
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm font-medium text-gray-900 dark:text-white">
+                    {corr.metric_1_name}
+                  </span>
+                  {#if corr.direction === 'positive'}
+                    <TrendingUp size={14} class="text-gray-500 dark:text-gray-400" />
+                  {:else if corr.direction === 'negative'}
+                    <TrendingDown size={14} class="text-gray-500 dark:text-gray-400" />
+                  {:else}
+                    <MinusIcon size={14} class="text-gray-500 dark:text-gray-400" />
+                  {/if}
+                  <span class="text-sm font-medium text-gray-900 dark:text-white">
+                    {corr.metric_2_name}
+                  </span>
+                </div>
+                {#if getInterpretation(corr)}
+                  <p class="text-xs text-gray-600 dark:text-gray-400">
+
                     {getInterpretation(corr)}
                   </p>
+                {/if}
+              </div>
 
-                  <div class="flex flex-wrap gap-3 text-xs font-medium">
-                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg">
-                      p-value: {corr.p_value.toFixed(4)}
-                    </span>
-                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg">
-                      n = {corr.sample_size}
-                    </span>
-                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg">
-                      {corr.algorithm}
-                    </span>
-                    {#if !corr.significant}
-                      <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-lg flex items-center gap-1">
-                        <AlertTriangle size={14} />
-                        <span>Not significant</span>
-                      </span>
-                    {/if}
-                  </div>
+              <div class="text-right">
+                <div class="text-lg font-semibold text-gray-900 dark:text-white">
+                  {corr.coefficient.toFixed(2)}
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-500">
+                  {corr.strength}
                 </div>
               </div>
-            {/each}
-          </div>
-        </Card>
-      </div>
+            </div>
 
-      <!-- Scatter Plot -->
-      {#if selectedCorrelation && scatterData.length > 0}
-        <div class="mt-6">
-          <Card>
-            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Scatter Plot</h2>
-            <ScatterPlot
-              title="{selectedCorrelation.metric_1_name} vs {selectedCorrelation.metric_2_name}"
-              xLabel={selectedCorrelation.metric_1_name}
-              yLabel={selectedCorrelation.metric_2_name}
-              data={scatterData}
-              coefficient={selectedCorrelation.coefficient}
-              height={400}
-            />
-          </Card>
-        </div>
-      {/if}
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded">
+                p={corr.p_value.toFixed(4)}
+              </span>
+              <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded">
+                n={corr.sample_size}
+              </span>
+              {#if corr.lag > 0}
+                <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded">
+                  {corr.lag}d lag
+                </span>
+              {/if}
+            </div>
+          </div>
+        {/each}
+      </div>
+    </Card>
+
+    <!-- Scatter Plot with ECharts -->
+    {#if selectedCorrelation && scatterChartOption}
+      <Card>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+          {selectedCorrelation.metric_1_name} vs {selectedCorrelation.metric_2_name}
+        </h2>
+        <EChart option={scatterChartOption} height="400px" />
+      </Card>
     {/if}
 
-    <!-- Information Box -->
-    <div class="mt-6">
-      <Card gradient={true}>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-blue-500 rounded-xl">
-            <Info size={20} class="text-white" />
-          </div>
-          <h3 class="text-lg md:text-xl font-bold text-gray-800 dark:text-white">About Correlation Analysis</h3>
-        </div>
-        <div class="text-sm md:text-base text-gray-700 dark:text-gray-300 space-y-3 leading-relaxed">
-          <p>
-            <strong class="text-gray-900 dark:text-white">Correlation</strong> measures the statistical relationship between two metrics.
-            Values range from -1 (perfect negative) to +1 (perfect positive).
-          </p>
-          <p class="p-3 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 rounded-r-lg">
-            <strong class="text-yellow-900 dark:text-yellow-200">Important:</strong> Correlation does not imply causation. A strong correlation
-            means two metrics tend to change together, but one doesn't necessarily cause the other.
-          </p>
-          <p>
-            <strong class="text-gray-900 dark:text-white">Lag correlation</strong> detects delayed effects (e.g., sleep today affecting
-            mood tomorrow).
-          </p>
-          <p>
-            <strong class="text-gray-900 dark:text-white">Statistical significance</strong> (p &lt; 0.05) indicates the correlation is
-            unlikely to be due to random chance.
-          </p>
-        </div>
-      </Card>
-    </div>
+    <!-- Information -->
+    <Card>
+      <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+        About Correlation Analysis
+      </h3>
+      <div class="text-xs text-gray-600 dark:text-gray-400 space-y-2">
+        <p>
+          Correlation measures the statistical relationship between two metrics.
+          Values range from -1 (perfect negative) to +1 (perfect positive).
+        </p>
+        <p class="py-2 px-3 bg-gray-50 dark:bg-gray-800 rounded border-l-2 border-gray-300 dark:border-gray-600">
+          <strong>Important:</strong> Correlation does not imply causation.
+        </p>
+      </div>
+    </Card>
+  {/if}
 </AuthenticatedLayout>
