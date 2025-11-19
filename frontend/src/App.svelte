@@ -5,6 +5,7 @@
   import { authActions, authStore, isAuthenticated } from './stores/user';
   import { initI18n } from './i18n';
   import { get } from 'svelte/store';
+  import { themeStore } from './stores/theme'; // Initialize theme store early
 
   // Pages
   import Login from './pages/Login.svelte';
