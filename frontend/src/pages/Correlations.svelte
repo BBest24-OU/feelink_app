@@ -288,11 +288,9 @@
               <div
                 on:click={() => selectCorrelation(corr)}
                 class="group relative overflow-hidden p-5 md:p-6 border-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5 animate-fade-in"
-                style="animation-delay: {index * 0.05}s"
+                style="animation-delay: {index * 0.05}s; background-color: {selectedCorrelation === corr ? 'rgba(239, 246, 255, 0.5)' : 'white'};"
                 class:border-blue-300={selectedCorrelation === corr}
-                class:bg-blue-50/50={selectedCorrelation === corr}
                 class:border-gray-200={selectedCorrelation !== corr}
-                class:bg-white={selectedCorrelation !== corr}
                 class:hover:border-primary-300={selectedCorrelation !== corr}
               >
                 <!-- Correlation Strength Indicator -->
