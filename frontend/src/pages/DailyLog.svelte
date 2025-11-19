@@ -102,7 +102,7 @@
   }
 
   function setMetricValue(metricId: number, value: any) {
-    metricValues[metricId] = value;
+    metricValues = { ...metricValues, [metricId]: value };
   }
 
   $: completedCount = Object.keys(metricValues).filter(id => {
