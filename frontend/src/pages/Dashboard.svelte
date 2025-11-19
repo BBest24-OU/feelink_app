@@ -74,47 +74,6 @@
     </h2>
     <p class="text-gray-600 mt-2">Track your well-being and discover meaningful patterns in your life.</p>
   </div>
-<div class="min-h-screen bg-gray-50">
-  <nav class="bg-white shadow-sm border-b border-gray-200">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-primary-600">FeelInk</h1>
-        <div class="flex items-center space-x-6">
-          <a href="#/dashboard" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.dashboard')}
-          </a>
-          <a href="#/log" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.log')}
-          </a>
-          <a href="#/metrics" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.metrics')}
-          </a>
-          <a href="#/entries" class="text-gray-700 hover:text-primary-600 font-medium">
-            Entries
-          </a>
-          <a href="#/insights" class="text-gray-700 hover:text-primary-600 font-medium">
-            Insights
-          </a>
-          <a href="#/correlations" class="text-gray-700 hover:text-primary-600 font-medium">
-            Correlations
-          </a>
-          <a href="#/profile" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.profile')}
-          </a>
-          <Button size="sm" variant="ghost" on:click={handleLogout}>
-            {$t('auth.logout')}
-          </Button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container mx-auto p-6">
-    <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-800">
-        {$t('dashboard.welcome')}, {$authStore.user?.email}!
-      </h2>
-    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <Card>

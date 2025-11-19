@@ -154,7 +154,7 @@
     "nameRequired": "Proszę wprowadź swoje imię",
     "continue": "Kontynuuj",
     "skip": "Pomiń",
-    "error": "Nie udało się zapisać informacji"
+    "error": "Nie udało się zapisać informacji",
     "accountInfo": "Informacje o koncie",
     "dataSection": "Dane",
     "dataSectionDescription": "Zarządzaj danymi aplikacji - wygeneruj dane demonstracyjne lub wyczyść istniejące dane.",
