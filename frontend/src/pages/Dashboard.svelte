@@ -10,6 +10,7 @@
   import Button from '../components/Button.svelte';
   import CalendarHeatmap from '../components/CalendarHeatmap.svelte';
   import { format, subDays, parseISO } from 'date-fns';
+  import { TrendingUp, FileText, Activity, Wifi, WifiOff, Flame, Calendar as CalendarIcon, ArrowRight } from 'lucide-svelte';
 
   onMount(async () => {
     // Ensure user is authenticated before loading data
@@ -68,120 +69,160 @@
 </script>
 
 <AuthenticatedLayout>
-  <div class="mb-8">
-    <h2 class="text-3xl font-bold text-gray-800">
-      {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0]}!
+  <!-- Welcome Header -->
+  <div class="mb-8 animate-slide-down">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+      {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0] || $authStore.user?.email}! 👋
     </h2>
-    <p class="text-gray-600 mt-2">Track your well-being and discover meaningful patterns in your life.</p>
+    <p class="text-gray-600 text-lg">Track your well-being and discover meaningful patterns in your life.</p>
   </div>
-<div class="min-h-screen bg-gray-50">
-  <nav class="bg-white shadow-sm border-b border-gray-200">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-primary-600">FeelInk</h1>
-        <div class="flex items-center space-x-6">
-          <a href="#/dashboard" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.dashboard')}
-          </a>
-          <a href="#/log" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.log')}
-          </a>
-          <a href="#/metrics" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.metrics')}
-          </a>
-          <a href="#/entries" class="text-gray-700 hover:text-primary-600 font-medium">
-            Entries
-          </a>
-          <a href="#/insights" class="text-gray-700 hover:text-primary-600 font-medium">
-            Insights
-          </a>
-          <a href="#/correlations" class="text-gray-700 hover:text-primary-600 font-medium">
-            Correlations
-          </a>
-          <a href="#/profile" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.profile')}
-          </a>
-          <Button size="sm" variant="ghost" on:click={handleLogout}>
-            {$t('auth.logout')}
-          </Button>
+
+  <!-- Stats Cards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+    <!-- Streak Card -->
+    <div class="group relative overflow-hidden bg-gradient-to-br from-orange-500 to-pink-600 rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-1 animate-fade-in">
+      <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+      <div class="relative p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+            <Flame class="text-white" size={24} />
+          </div>
+          <TrendingUp class="text-white/50" size={20} />
         </div>
+        <h3 class="text-white/90 text-sm font-medium mb-2">{$t('dashboard.currentStreak')}</h3>
+        <p class="text-4xl md:text-5xl font-bold text-white mb-1">{currentStreak}</p>
+        <p class="text-white/80 text-sm">days in a row 🔥</p>
       </div>
     </div>
-  </nav>
 
-  <div class="container mx-auto p-6">
-    <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-800">
-        {$t('dashboard.welcome')}, {$authStore.user?.email}!
-      </h2>
+    <!-- Total Entries Card -->
+    <div class="group relative overflow-hidden bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-1 animate-fade-in" style="animation-delay: 0.1s">
+      <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+      <div class="relative p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+            <FileText class="text-white" size={24} />
+          </div>
+          <TrendingUp class="text-white/50" size={20} />
+        </div>
+        <h3 class="text-white/90 text-sm font-medium mb-2">{$t('dashboard.totalEntries')}</h3>
+        <p class="text-4xl md:text-5xl font-bold text-white mb-1">{$entriesStore.total}</p>
+        <p class="text-white/80 text-sm">journal entries</p>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <Card>
-        <h3 class="text-lg font-semibold text-gray-700 mb-2">{$t('dashboard.currentStreak')}</h3>
-        <p class="text-4xl font-bold text-primary-600">{currentStreak}</p>
-        <p class="text-sm text-gray-500 mt-1">days</p>
-      </Card>
+    <!-- Active Metrics Card -->
+    <div class="group relative overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-1 animate-fade-in" style="animation-delay: 0.2s">
+      <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+      <div class="relative p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+            <Activity class="text-white" size={24} />
+          </div>
+          <TrendingUp class="text-white/50" size={20} />
+        </div>
+        <h3 class="text-white/90 text-sm font-medium mb-2">Active Metrics</h3>
+        <p class="text-4xl md:text-5xl font-bold text-white mb-1">{$activeMetrics.length}</p>
+        <p class="text-white/80 text-sm">tracking now</p>
+      </div>
+    </div>
 
-      <Card>
-        <h3 class="text-lg font-semibold text-gray-700 mb-2">{$t('dashboard.totalEntries')}</h3>
-        <p class="text-4xl font-bold text-secondary-600">{$entriesStore.total}</p>
-        <p class="text-sm text-gray-500 mt-1">entries</p>
-      </Card>
-
-      <Card>
-        <h3 class="text-lg font-semibold text-gray-700 mb-2">Active Metrics</h3>
-        <p class="text-4xl font-bold text-indigo-600">{$activeMetrics.length}</p>
-        <p class="text-sm text-gray-500 mt-1">metrics</p>
-      </Card>
-
-      <Card>
-        <h3 class="text-lg font-semibold text-gray-700 mb-2">Sync Status</h3>
-        <p class="text-2xl font-bold" class:text-green-600={$syncStatus.isOnline} class:text-red-600={!$syncStatus.isOnline}>
+    <!-- Sync Status Card -->
+    <div class="group relative overflow-hidden bg-gradient-to-br {$syncStatus.isOnline ? 'from-green-500 to-emerald-600' : 'from-gray-500 to-gray-600'} rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 hover:-translate-y-1 animate-fade-in" style="animation-delay: 0.3s">
+      <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+      <div class="relative p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+            {#if $syncStatus.isOnline}
+              <Wifi class="text-white" size={24} />
+            {:else}
+              <WifiOff class="text-white" size={24} />
+            {/if}
+          </div>
+        </div>
+        <h3 class="text-white/90 text-sm font-medium mb-2">Sync Status</h3>
+        <p class="text-2xl md:text-3xl font-bold text-white mb-1">
           {$syncStatus.isOnline ? 'Online' : 'Offline'}
         </p>
         {#if $syncStatus.pendingCount > 0}
-          <p class="text-sm text-gray-500 mt-1">{$syncStatus.pendingCount} pending</p>
+          <p class="text-white/80 text-sm">{$syncStatus.pendingCount} pending sync</p>
         {:else}
-          <p class="text-sm text-gray-500 mt-1">All synced</p>
+          <p class="text-white/80 text-sm">All synced ✓</p>
         {/if}
-      </Card>
+      </div>
     </div>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <Card>
-        <h2 class="text-xl font-bold text-gray-800 mb-4">{$t('dashboard.quickLog')}</h2>
-        <p class="text-gray-600 mb-4">Ready to log today's entry?</p>
-        <a
-          href="#/log"
-          class="inline-block px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-        >
-          {$t('dashboard.quickLog')}
-        </a>
-      </Card>
+  <!-- Quick Actions Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Quick Log Card -->
+    <Card gradient={true} hover={false}>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="p-2 bg-gradient-primary rounded-xl">
+          <CalendarIcon class="text-white" size={20} />
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('dashboard.quickLog')}</h2>
+      </div>
+      <p class="text-gray-600 mb-6">Ready to log today's entry? Track your metrics and see how you're feeling.</p>
+      <a href="#/log">
+        <Button variant="gradient" fullWidth={true}>
+          <span class="flex items-center justify-center gap-2">
+            <span>{$t('dashboard.quickLog')}</span>
+            <ArrowRight size={18} />
+          </span>
+        </Button>
+      </a>
+    </Card>
 
-      <Card>
-        <h2 class="text-xl font-bold text-gray-800 mb-4">{$t('dashboard.recentActivity')}</h2>
-        {#if $entriesStore.entries.length > 0}
-          <div class="space-y-2">
-            {#each $entriesStore.entries.slice(0, 5) as entry}
-              <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-sm text-gray-700">{entry.entry_date}</span>
-                <span class="text-xs text-gray-500">{entry.values.length} metrics</span>
+    <!-- Recent Activity Card -->
+    <Card gradient={false} hover={false}>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl">
+          <Activity class="text-white" size={20} />
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('dashboard.recentActivity')}</h2>
+      </div>
+      {#if $entriesStore.entries.length > 0}
+        <div class="space-y-2 mb-4">
+          {#each $entriesStore.entries.slice(0, 5) as entry, index}
+            <div class="flex justify-between items-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors duration-200 animate-fade-in" style="animation-delay: {index * 0.05}s">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-primary-100 rounded-lg">
+                  <CalendarIcon class="text-primary-600" size={16} />
+                </div>
+                <span class="font-medium text-gray-700">{entry.entry_date}</span>
               </div>
-            {/each}
-          </div>
-          <a href="#/entries" class="text-sm text-primary-600 hover:underline mt-4 inline-block">
-            View all entries →
+              <span class="text-sm font-semibold text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
+                {entry.values.length} metrics
+              </span>
+            </div>
+          {/each}
+        </div>
+        <a href="#/entries" class="group inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors">
+          <span>View all entries</span>
+          <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
+        </a>
+      {:else}
+        <div class="text-center py-8">
+          <p class="text-gray-500 mb-4">No recent entries yet</p>
+          <a href="#/log">
+            <Button variant="secondary" size="sm">Create your first entry</Button>
           </a>
-        {:else}
-          <p class="text-gray-500">No recent entries</p>
-        {/if}
-      </Card>
-    </div>
+        </div>
+      {/if}
+    </Card>
+  </div>
 
-  <Card>
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Entry Calendar</h2>
-    <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />
+  <!-- Calendar Heatmap -->
+  <Card gradient={false} hover={false}>
+    <div class="flex items-center gap-3 mb-6">
+      <div class="p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl">
+        <CalendarIcon class="text-white" size={20} />
+      </div>
+      <h2 class="text-xl md:text-2xl font-bold text-gray-800">Entry Calendar</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />
+    </div>
   </Card>
 </AuthenticatedLayout>

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { authStore, authActions } from '../stores/user';
   import { t } from '../i18n';
-  import { User, Mail, Globe, Clock, Lock, Database } from 'lucide-svelte';
+  import { User, Mail, Globe, Clock, Lock, Database, Sparkles } from 'lucide-svelte';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
   import Input from '../components/Input.svelte';
@@ -175,19 +175,28 @@
 </script>
 
 <AuthenticatedLayout maxWidth="lg">
-  <div class="space-y-6">
-    <!-- Header -->
-    <div>
-      <h1 class="text-2xl md:text-3xl font-bold text-gray-800">{$t('profile.title')}</h1>
-      <p class="text-gray-600 mt-1">{$t('profile.subtitle')}</p>
+  <div class="space-y-6 md:space-y-8">
+    <!-- Enhanced Header -->
+    <div class="animate-slide-down">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-glow">
+          <User size={28} class="text-white" />
+        </div>
+        <div>
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{$t('profile.title')}</h1>
+          <p class="text-gray-600 mt-1 text-lg">{$t('profile.subtitle')}</p>
+        </div>
+      </div>
     </div>
 
     <!-- Profile Information Card -->
-    <Card>
-      <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center space-x-2">
-        <User size={24} class="text-primary-600" />
-        <span>{$t('profile.personalInfo')}</span>
-      </h2>
+    <Card gradient={true}>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2 bg-primary-600 rounded-xl">
+          <User size={20} class="text-white" />
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('profile.personalInfo')}</h2>
+      </div>
 
       <form on:submit|preventDefault={handleSave} class="space-y-6">
         <!-- Name -->
@@ -276,17 +285,19 @@
     </Card>
 
     <!-- Security Card -->
-    <Card>
-      <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center space-x-2">
-        <Lock size={24} class="text-primary-600" />
-        <span>{$t('profile.security')}</span>
-      </h2>
+    <Card gradient={false}>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl">
+          <Lock size={20} class="text-white" />
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('profile.security')}</h2>
+      </div>
 
-      <div class="space-y-4">
+      <div class="space-y-4 p-5 bg-gray-50 rounded-xl">
         <div>
-          <h3 class="text-sm font-medium text-gray-700 mb-2">{$t('profile.password')}</h3>
+          <h3 class="text-base font-semibold text-gray-800 mb-2">{$t('profile.password')}</h3>
           <p class="text-sm text-gray-600 mb-4">{$t('profile.passwordDescription')}</p>
-          <Button variant="secondary" on:click={handleResetPassword}>
+          <Button variant="secondary" size="md" on:click={handleResetPassword}>
             {$t('profile.resetPassword')}
           </Button>
         </div>
@@ -294,42 +305,68 @@
     </Card>
 
     <!-- Data Management Card -->
-    <Card>
-      <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center space-x-2">
-        <Database size={24} class="text-primary-600" />
-        <span>{$t('onboarding.dataSection')}</span>
-      </h2>
+    <Card gradient={true}>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl">
+          <Database size={20} class="text-white" />
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('onboarding.dataSection')}</h2>
+      </div>
 
-      <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Demo Data Section -->
-        <div>
-          <h3 class="text-sm font-medium text-gray-700 mb-2">{$t('onboarding.demoData')}</h3>
-          <p class="text-sm text-gray-600 mb-4">{$t('onboarding.demoDataDescription')}</p>
+        <div class="p-5 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-colors">
+          <h3 class="text-base font-bold text-gray-800 mb-2 flex items-center gap-2">
+            <Sparkles size={18} class="text-blue-600" />
+            <span>{$t('onboarding.demoData')}</span>
+          </h3>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">{$t('onboarding.demoDataDescription')}</p>
           <Button
             variant="secondary"
+            size="md"
+            fullWidth={true}
             disabled={isGeneratingDemo}
             on:click={() => {
               console.log('[Profile] Demo button clicked, showing modal');
               showDemoConfirmModal = true;
             }}
           >
-            {isGeneratingDemo ? $t('common.loading') : $t('onboarding.generateDemoData')}
+            {#if isGeneratingDemo}
+              <div class="flex items-center justify-center gap-2">
+                <div class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                <span>{$t('common.loading')}</span>
+              </div>
+            {:else}
+              <span>{$t('onboarding.generateDemoData')}</span>
+            {/if}
           </Button>
         </div>
 
         <!-- Clear Data Section -->
-        <div>
-          <h3 class="text-sm font-medium text-gray-700 mb-2">{$t('onboarding.clearData')}</h3>
-          <p class="text-sm text-gray-600 mb-4">{$t('onboarding.clearDataDescription')}</p>
+        <div class="p-5 bg-gradient-to-br from-red-50 to-pink-50 rounded-xl border-2 border-red-200 hover:border-red-300 transition-colors">
+          <h3 class="text-base font-bold text-gray-800 mb-2 flex items-center gap-2">
+            <Database size={18} class="text-red-600" />
+            <span>{$t('onboarding.clearData')}</span>
+          </h3>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">{$t('onboarding.clearDataDescription')}</p>
           <Button
             variant="danger"
+            size="md"
+            fullWidth={true}
             disabled={isClearingData}
             on:click={() => {
               console.log('[Profile] Clear button clicked, showing modal');
               showClearConfirmModal = true;
             }}
           >
-            {isClearingData ? $t('common.loading') : $t('onboarding.clearAllData')}
+            {#if isClearingData}
+              <div class="flex items-center justify-center gap-2">
+                <div class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                <span>{$t('common.loading')}</span>
+              </div>
+            {:else}
+              <span>{$t('onboarding.clearAllData')}</span>
+            {/if}
           </Button>
         </div>
 
