@@ -287,14 +287,12 @@
             {#each filteredCorrelations as corr, index}
               <div
                 on:click={() => selectCorrelation(corr)}
-                class="group relative overflow-hidden p-5 md:p-6 border-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5 animate-fade-in bg-white dark:bg-gray-800"
+                class="group relative overflow-hidden p-5 md:p-6 border-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5 animate-fade-in bg-white dark:bg-gray-800 {
+                  selectedCorrelation === corr
+                    ? 'border-blue-300 dark:border-blue-500'
+                    : 'border-gray-200 dark:border-gray-600 hover:border-primary-300 dark:hover:border-primary-500'
+                }"
                 style="animation-delay: {index * 0.05}s;"
-                class:border-blue-300={selectedCorrelation === corr}
-                class:dark:border-blue-500={selectedCorrelation === corr}
-                class:border-gray-200={selectedCorrelation !== corr}
-                class:dark:border-gray-600={selectedCorrelation !== corr}
-                class:hover:border-primary-300={selectedCorrelation !== corr}
-                class:dark:hover:border-primary-500={selectedCorrelation !== corr}
               >
                 <!-- Correlation Strength Indicator -->
                 <div class="absolute top-0 left-0 w-2 h-full rounded-l-2xl"
@@ -327,31 +325,23 @@
 
                     <div class="flex flex-row md:flex-col gap-3 md:gap-2 items-center md:items-end">
                       <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold"
-                          class:text-blue-600={corr.direction === 'positive'}
-                          class:dark:text-blue-400={corr.direction === 'positive'}
-                          class:text-red-600={corr.direction === 'negative'}
-                          class:dark:text-red-400={corr.direction === 'negative'}
-                          class:text-gray-500={corr.direction === 'none'}
-                          class:dark:text-gray-400={corr.direction === 'none'}
-                        >
+                        <div class="text-3xl md:text-4xl font-bold {
+                          corr.direction === 'positive'
+                            ? 'text-blue-600 dark:text-blue-400'
+                            : corr.direction === 'negative'
+                            ? 'text-red-600 dark:text-red-400'
+                            : 'text-gray-500 dark:text-gray-400'
+                        }">
                           {corr.coefficient.toFixed(2)}
                         </div>
                       </div>
-                      <div class="px-3 py-1 rounded-full text-xs font-bold"
-                        class:bg-green-100={corr.strength === 'strong'}
-                        class:dark:bg-green-900/30={corr.strength === 'strong'}
-                        class:text-green-700={corr.strength === 'strong'}
-                        class:dark:text-green-400={corr.strength === 'strong'}
-                        class:bg-yellow-100={corr.strength === 'moderate'}
-                        class:dark:bg-yellow-900/30={corr.strength === 'moderate'}
-                        class:text-yellow-700={corr.strength === 'moderate'}
-                        class:dark:text-yellow-400={corr.strength === 'moderate'}
-                        class:bg-gray-100={corr.strength === 'weak'}
-                        class:dark:bg-gray-700={corr.strength === 'weak'}
-                        class:text-gray-700={corr.strength === 'weak'}
-                        class:dark:text-gray-300={corr.strength === 'weak'}
-                      >
+                      <div class="px-3 py-1 rounded-full text-xs font-bold {
+                        corr.strength === 'strong'
+                          ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                          : corr.strength === 'moderate'
+                          ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      }">
                         {corr.strength.toUpperCase()}
                       </div>
                     </div>
