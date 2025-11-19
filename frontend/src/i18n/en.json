@@ -154,7 +154,7 @@
     "nameRequired": "Please enter your name",
     "continue": "Continue",
     "skip": "Skip for now",
-    "error": "Failed to save your information"
+    "error": "Failed to save your information",
     "accountInfo": "Account Information",
     "dataSection": "Data",
     "dataSectionDescription": "Manage your application data with demo data or clear existing data.",

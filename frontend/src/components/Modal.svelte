@@ -1,6 +1,6 @@
 <script lang="ts">
   export let onClose: (() => void) | undefined = undefined;
-  export let open: boolean = true;
+  export let open: boolean = false;
   export let title: string = '';
   export let size: 'sm' | 'md' | 'lg' = 'md';
 
@@ -25,6 +25,7 @@
   }
 </script>
 
+{#if open}
 <div
   class="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4"
   on:click={handleBackdropClick}
@@ -57,3 +58,4 @@
     </div>
   </div>
 </div>
+{/if}

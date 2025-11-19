@@ -29,7 +29,9 @@
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker logs feelink_backend --tail 10)",
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker exec:*)",
       "Bash(/Applications/Docker.app/Contents/Resources/bin/docker logs feelink_backend)",
-      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker logs feelink_backend --tail 5)"
+      "Bash(/Applications/Docker.app/Contents/Resources/bin/docker logs feelink_backend --tail 5)",
+      "Bash(npm run build:*)",
+      "Bash(npx svelte-check:*)"
     ],
     "deny": [],
     "ask": []
