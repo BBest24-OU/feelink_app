@@ -9,7 +9,7 @@
   import CorrelationMatrix from '../components/CorrelationMatrix.svelte';
   import ScatterPlot from '../components/ScatterPlot.svelte';
   import { subDays, format } from 'date-fns';
-  import { TrendingUp, TrendingDown, Minus as MinusIcon, Sparkles, Settings, Info, BarChart3 } from 'lucide-svelte';
+  import { TrendingUp, TrendingDown, Minus as MinusIcon, Sparkles, Settings, Info, BarChart3, Clock, AlertTriangle } from 'lucide-svelte';
 
   interface Correlation {
     metric_1_id: number;
@@ -316,7 +316,7 @@
                       </h3>
                       {#if corr.lag > 0}
                         <span class="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">
-                          <span>⏱</span>
+                          <Clock size={14} />
                           <span>{corr.lag}-day lag effect</span>
                         </span>
                       {/if}
@@ -361,7 +361,7 @@
                     </span>
                     {#if !corr.significant}
                       <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-lg flex items-center gap-1">
-                        <span>⚠</span>
+                        <AlertTriangle size={14} />
                         <span>Not significant</span>
                       </span>
                     {/if}

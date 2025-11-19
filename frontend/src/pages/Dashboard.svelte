@@ -10,7 +10,7 @@
   import Button from '../components/Button.svelte';
   import CalendarHeatmap from '../components/CalendarHeatmap.svelte';
   import { format, subDays, parseISO } from 'date-fns';
-  import { TrendingUp, FileText, Activity, Wifi, WifiOff, Flame, Calendar as CalendarIcon, ArrowRight } from 'lucide-svelte';
+  import { TrendingUp, FileText, Activity, Wifi, WifiOff, Flame, Calendar as CalendarIcon, ArrowRight, Hand, Check } from 'lucide-svelte';
 
   onMount(async () => {
     // Ensure user is authenticated before loading data
@@ -71,9 +71,14 @@
 <AuthenticatedLayout>
   <!-- Welcome Header -->
   <div class="mb-8 animate-slide-down">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-      {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0] || $authStore.user?.email}! 👋
-    </h2>
+    <div class="flex items-center gap-3 mb-2">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+        {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0] || $authStore.user?.email}!
+      </h2>
+      <div class="animate-bounce-soft">
+        <Hand size={32} class="text-yellow-500" />
+      </div>
+    </div>
     <p class="text-gray-600 text-lg">Track your well-being and discover meaningful patterns in your life.</p>
   </div>
 
@@ -91,7 +96,10 @@
         </div>
         <h3 class="text-white/90 text-sm font-medium mb-2">{$t('dashboard.currentStreak')}</h3>
         <p class="text-4xl md:text-5xl font-bold text-white mb-1">{currentStreak}</p>
-        <p class="text-white/80 text-sm">days in a row 🔥</p>
+        <div class="flex items-center gap-2">
+          <p class="text-white/80 text-sm">days in a row</p>
+          <Flame size={18} class="text-orange-300" />
+        </div>
       </div>
     </div>
 
@@ -147,7 +155,10 @@
         {#if $syncStatus.pendingCount > 0}
           <p class="text-white/80 text-sm">{$syncStatus.pendingCount} pending sync</p>
         {:else}
-          <p class="text-white/80 text-sm">All synced ✓</p>
+          <div class="flex items-center gap-2">
+            <p class="text-white/80 text-sm">All synced</p>
+            <Check size={16} class="text-green-300 stroke-[3]" />
+          </div>
         {/if}
       </div>
     </div>

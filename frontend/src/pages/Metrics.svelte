@@ -9,6 +9,7 @@
   import Modal from '../components/Modal.svelte';
   import Input from '../components/Input.svelte';
   import Select from '../components/Select.svelte';
+  import { Smile, Plus } from 'lucide-svelte';
 
   let showCreateModal = false;
   let editingMetric: Metric | null = null;
@@ -144,7 +145,10 @@
       <p class="text-gray-600 mt-2">Create and manage your custom tracking metrics.</p>
     </div>
     <Button variant="primary" on:click={openCreateModal}>
-      + {$t('metrics.create')}
+      <div class="flex items-center gap-2">
+        <Plus size={20} />
+        <span>{$t('metrics.create')}</span>
+      </div>
     </Button>
   </div>
 
@@ -299,12 +303,17 @@
         />
       </div>
 
-      <Input
-        id="icon"
-        label={$t('metrics.icon')}
-        bind:value={formData.icon}
-        placeholder="😊"
-      />
+      <div>
+        <label for="icon" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+          <Smile size={16} />
+          <span>{$t('metrics.icon')}</span>
+        </label>
+        <Input
+          id="icon"
+          bind:value={formData.icon}
+          placeholder="Icon name or emoji"
+        />
+      </div>
     </div>
 
     <div class="flex justify-end space-x-3 pt-4">
