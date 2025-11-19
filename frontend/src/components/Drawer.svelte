@@ -13,8 +13,11 @@
     LogOut,
     X,
     Heart,
-    User
+    User,
+    Sun,
+    Moon
   } from 'lucide-svelte';
+  import { themeStore } from '../stores/theme';
 
   export let open = false;
 
@@ -67,19 +70,19 @@
 
   <!-- Drawer -->
   <aside
-    class="md:hidden fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col"
+    class="md:hidden fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col"
   >
     <!-- Header -->
-    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 flex-shrink-0">
+    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
           <Heart size={20} class="text-white" />
         </div>
-        <h1 class="text-xl font-bold text-gray-800">Feelink</h1>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">Feelink</h1>
       </div>
       <button
         on:click={close}
-        class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 active:bg-gray-200 transition-colors"
+        class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
         aria-label={$t('nav.closeMenu')}
       >
         <X size={24} />
@@ -97,8 +100,8 @@
               class="flex items-center px-4 py-3 space-x-3 rounded-lg transition-colors {isActive(
                 item.path
               )
-                ? 'bg-primary-50 text-primary-700'
-                : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'}"
+                ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700'}"
             >
               <svelte:component
                 this={item.icon}
@@ -113,10 +116,25 @@
     </nav>
 
     <!-- Bottom Section -->
-    <div class="border-t border-gray-200 p-3">
+    <div class="border-t border-gray-200 dark:border-gray-700 p-3 space-y-2">
+      <!-- Theme Toggle -->
+      <button
+        on:click={() => themeStore.toggle()}
+        class="flex items-center w-full px-4 py-3 space-x-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700 transition-colors"
+      >
+        {#if $themeStore.resolvedTheme === 'dark'}
+          <Sun size={22} />
+          <span class="font-medium">{$t('nav.lightMode')}</span>
+        {:else}
+          <Moon size={22} />
+          <span class="font-medium">{$t('nav.darkMode')}</span>
+        {/if}
+      </button>
+
+      <!-- Logout Button -->
       <button
         on:click={handleLogout}
-        class="flex items-center w-full px-4 py-3 space-x-3 rounded-lg text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors"
+        class="flex items-center w-full px-4 py-3 space-x-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 active:bg-red-100 dark:active:bg-red-900/30 transition-colors"
       >
         <LogOut size={22} />
         <span class="font-medium">{$t('nav.logout')}</span>

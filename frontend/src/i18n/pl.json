@@ -51,7 +51,9 @@
     "minimize": "Minimalizuj",
     "expand": "Rozwiń",
     "openMenu": "Otwórz menu",
-    "closeMenu": "Zamknij menu"
+    "closeMenu": "Zamknij menu",
+    "lightMode": "Tryb jasny",
+    "darkMode": "Tryb ciemny"
   },
   "dashboard": {
     "title": "Panel główny",
@@ -143,7 +145,13 @@
     "resetPasswordPlaceholder": "Funkcja resetowania hasła wkrótce dostępna",
     "saveChanges": "Zapisz zmiany",
     "updateSuccess": "Profil zaktualizowany pomyślnie",
-    "updateError": "Nie udało się zaktualizować profilu"
+    "updateError": "Nie udało się zaktualizować profilu",
+    "theme": "Motyw",
+    "themeDescription": "Wybierz preferowany schemat kolorów",
+    "lightTheme": "Jasny",
+    "darkTheme": "Ciemny",
+    "systemTheme": "Systemowy",
+    "currentTheme": "Obecny motyw"
   },
   "onboarding": {
     "welcome": "Witaj w Feelink!",

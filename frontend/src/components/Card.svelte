@@ -13,10 +13,10 @@
   };
 
   $: classes = `
-    bg-white rounded-2xl shadow-soft border border-gray-100
+    bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-700
     ${paddingClasses[padding]}
-    ${hover ? 'hover:shadow-medium hover:border-gray-200 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2' : 'transition-all duration-200'}
-    ${gradient ? 'bg-gradient-to-br from-white via-white to-primary-50/30' : ''}
+    ${hover ? 'hover:shadow-medium hover:border-gray-200 dark:hover:border-gray-600 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900' : 'transition-all duration-200'}
+    ${gradient ? 'bg-gradient-to-br from-white via-white to-primary-50/30 dark:from-gray-800 dark:via-gray-800 dark:to-primary-900/20' : ''}
     ${animate ? 'animate-fade-in' : ''}
   `.trim();
 

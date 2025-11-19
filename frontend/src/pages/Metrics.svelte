@@ -141,8 +141,8 @@
 <AuthenticatedLayout>
   <div class="flex justify-between items-center mb-8">
     <div>
-      <h1 class="text-3xl font-bold text-gray-800">{$t('metrics.title')}</h1>
-      <p class="text-gray-600 mt-2">Create and manage your custom tracking metrics.</p>
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white">{$t('metrics.title')}</h1>
+      <p class="text-gray-600 dark:text-gray-400 mt-2">Create and manage your custom tracking metrics.</p>
     </div>
     <Button variant="primary" on:click={openCreateModal}>
       <div class="flex items-center gap-2">
@@ -171,9 +171,9 @@
           type="checkbox"
           bind:checked={showArchived}
           on:change={() => metricsActions.load(showArchived)}
-          class="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
+          class="w-4 h-4 text-primary-600 dark:text-primary-500 rounded focus:ring-primary-500 dark:focus:ring-primary-400"
         />
-        <span class="text-sm text-gray-700">{$t('metrics.showArchived')}</span>
+        <span class="text-sm text-gray-700 dark:text-gray-300">{$t('metrics.showArchived')}</span>
       </label>
     </div>
   </div>
@@ -182,13 +182,13 @@
     <Loading />
   {:else if filteredMetrics.length === 0}
     <Card>
-      <p class="text-center text-gray-500 py-8">{$t('metrics.noMetrics')}</p>
+      <p class="text-center text-gray-500 dark:text-gray-400 py-8">{$t('metrics.noMetrics')}</p>
     </Card>
   {:else}
     <div class="space-y-6">
       {#each Object.entries(groupedMetrics) as [category, metrics]}
         <div>
-          <h2 class="text-xl font-semibold text-gray-700 mb-3">
+          <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">
             {$t(`metrics.categories.${category}`)} ({metrics.length})
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -199,7 +199,7 @@
                     {#if metric.color}
                       <div class="w-4 h-4 rounded-full" style="background-color: {metric.color}"></div>
                     {/if}
-                    <h3 class="font-semibold text-gray-800">{metric.name_key}</h3>
+                    <h3 class="font-semibold text-gray-800 dark:text-white">{metric.name_key}</h3>
                   </div>
                   <span class="text-xs px-2 py-1 rounded-full {getCategoryColor(metric.category)}">
                     {$t(`metrics.types.${metric.value_type}`)}
@@ -207,11 +207,11 @@
                 </div>
 
                 {#if metric.description}
-                  <p class="text-sm text-gray-600 mb-3">{metric.description}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{metric.description}</p>
                 {/if}
 
                 {#if metric.value_type === 'range' && metric.min_value !== null && metric.max_value !== null}
-                  <p class="text-xs text-gray-500 mb-3">
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">
                     Range: {metric.min_value} - {metric.max_value}
                   </p>
                 {/if}

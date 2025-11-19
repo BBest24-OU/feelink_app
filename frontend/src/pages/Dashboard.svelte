@@ -72,14 +72,14 @@
   <!-- Welcome Header -->
   <div class="mb-8 animate-slide-down">
     <div class="flex items-center gap-3 mb-2">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
         {$t('dashboard.welcome')}, {$authStore.user?.email?.split('@')[0] || $authStore.user?.email}!
       </h2>
       <div class="animate-bounce-soft">
         <Hand size={32} class="text-yellow-500" />
       </div>
     </div>
-    <p class="text-gray-600 text-lg">Track your well-being and discover meaningful patterns in your life.</p>
+    <p class="text-gray-600 dark:text-gray-400 text-lg">Track your well-being and discover meaningful patterns in your life.</p>
   </div>
 
   <!-- Stats Cards Grid -->
@@ -172,9 +172,9 @@
         <div class="p-2 bg-gradient-primary rounded-xl">
           <CalendarIcon class="text-white" size={20} />
         </div>
-        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('dashboard.quickLog')}</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">{$t('dashboard.quickLog')}</h2>
       </div>
-      <p class="text-gray-600 mb-6">Ready to log today's entry? Track your metrics and see how you're feeling.</p>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">Ready to log today's entry? Track your metrics and see how you're feeling.</p>
       <a href="#/log">
         <Button variant="gradient" fullWidth={true}>
           <span class="flex items-center justify-center gap-2">
@@ -191,31 +191,31 @@
         <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl">
           <Activity class="text-white" size={20} />
         </div>
-        <h2 class="text-xl md:text-2xl font-bold text-gray-800">{$t('dashboard.recentActivity')}</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">{$t('dashboard.recentActivity')}</h2>
       </div>
       {#if $entriesStore.entries.length > 0}
         <div class="space-y-2 mb-4">
           {#each $entriesStore.entries.slice(0, 5) as entry, index}
-            <div class="flex justify-between items-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors duration-200 animate-fade-in" style="animation-delay: {index * 0.05}s">
+            <div class="flex justify-between items-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 animate-fade-in" style="animation-delay: {index * 0.05}s">
               <div class="flex items-center gap-3">
-                <div class="p-2 bg-primary-100 rounded-lg">
-                  <CalendarIcon class="text-primary-600" size={16} />
+                <div class="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                  <CalendarIcon class="text-primary-600 dark:text-primary-400" size={16} />
                 </div>
-                <span class="font-medium text-gray-700">{entry.entry_date}</span>
+                <span class="font-medium text-gray-700 dark:text-gray-300">{entry.entry_date}</span>
               </div>
-              <span class="text-sm font-semibold text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
+              <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 px-3 py-1 rounded-full">
                 {entry.values.length} metrics
               </span>
             </div>
           {/each}
         </div>
-        <a href="#/entries" class="group inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors">
+        <a href="#/entries" class="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors">
           <span>View all entries</span>
           <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
         </a>
       {:else}
         <div class="text-center py-8">
-          <p class="text-gray-500 mb-4">No recent entries yet</p>
+          <p class="text-gray-500 dark:text-gray-400 mb-4">No recent entries yet</p>
           <a href="#/log">
             <Button variant="secondary" size="sm">Create your first entry</Button>
           </a>
@@ -230,7 +230,7 @@
       <div class="p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl">
         <CalendarIcon class="text-white" size={20} />
       </div>
-      <h2 class="text-xl md:text-2xl font-bold text-gray-800">Entry Calendar</h2>
+      <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">Entry Calendar</h2>
     </div>
     <div class="overflow-x-auto">
       <CalendarHeatmap entries={$entriesStore.entries} onDateClick={handleDateClick} />

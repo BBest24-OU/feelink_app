@@ -14,8 +14,11 @@
     ChevronLeft,
     ChevronRight,
     Heart,
-    User
+    User,
+    Sun,
+    Moon
   } from 'lucide-svelte';
+  import { themeStore } from '../stores/theme';
 
   export let minimized = false;
 
@@ -46,12 +49,12 @@
 </script>
 
 <aside
-  class="hidden md:flex flex-col bg-white border-r border-gray-200 h-screen transition-all duration-300 ease-in-out {minimized
+  class="hidden md:flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 h-screen transition-all duration-300 ease-in-out {minimized
     ? 'w-20'
     : 'w-64'}"
 >
   <!-- Logo Section -->
-  <div class="flex items-center h-16 px-4 border-b border-gray-200 flex-shrink-0">
+  <div class="flex items-center h-16 px-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
     {#if minimized}
       <div class="flex items-center justify-center w-full">
         <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
@@ -63,7 +66,7 @@
         <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center">
           <Heart size={20} class="text-white" />
         </div>
-        <h1 class="text-xl font-bold text-gray-800">Feelink</h1>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-white">Feelink</h1>
       </div>
     {/if}
   </div>
@@ -78,8 +81,8 @@
             class="flex items-center rounded-lg transition-all duration-200 {minimized
               ? 'justify-center h-12 w-12 mx-auto'
               : 'px-3 py-3 space-x-3'} {isActive(item.path)
-              ? 'bg-primary-50 text-primary-700'
-              : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'}"
+              ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700'}"
             title={minimized ? $t(item.label) : ''}
           >
             <svelte:component
@@ -97,11 +100,31 @@
   </nav>
 
   <!-- Bottom Section -->
-  <div class="border-t border-gray-200 p-3 space-y-2">
-    <!-- Toggle Button -->
+  <div class="border-t border-gray-200 dark:border-gray-700 p-3 space-y-2">
+    <!-- Theme Toggle -->
+    <button
+      on:click={() => themeStore.toggle()}
+      class="flex items-center w-full rounded-lg px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700 transition-colors {minimized
+        ? 'justify-center'
+        : 'space-x-3'}"
+      title={minimized ? ($themeStore.resolvedTheme === 'dark' ? $t('nav.lightMode') : $t('nav.darkMode')) : ''}
+    >
+      {#if $themeStore.resolvedTheme === 'dark'}
+        <Sun size={20} />
+      {:else}
+        <Moon size={20} />
+      {/if}
+      {#if !minimized}
+        <span class="text-sm font-medium">
+          {$themeStore.resolvedTheme === 'dark' ? $t('nav.lightMode') : $t('nav.darkMode')}
+        </span>
+      {/if}
+    </button>
+
+    <!-- Toggle Sidebar Button -->
     <button
       on:click={toggleMinimized}
-      class="flex items-center w-full rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors {minimized
+      class="flex items-center w-full rounded-lg px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700 transition-colors {minimized
         ? 'justify-center'
         : 'space-x-3'}"
       title={minimized ? $t('nav.expand') : $t('nav.minimize')}
@@ -117,7 +140,7 @@
     <!-- Logout Button -->
     <button
       on:click={handleLogout}
-      class="flex items-center w-full rounded-lg px-3 py-2 text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors {minimized
+      class="flex items-center w-full rounded-lg px-3 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 active:bg-red-100 dark:active:bg-red-900/30 transition-colors {minimized
         ? 'justify-center'
         : 'space-x-3'}"
       title={minimized ? $t('nav.logout') : ''}

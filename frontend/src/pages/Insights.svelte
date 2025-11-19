@@ -93,19 +93,19 @@
 
 <AuthenticatedLayout>
   <div class="mb-6">
-    <h1 class="text-3xl font-bold text-gray-800">Insights & Analytics</h1>
-    <p class="text-gray-600 mt-2">Visualize your metrics and discover trends over time.</p>
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Insights & Analytics</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-2">Visualize your metrics and discover trends over time.</p>
   </div>
 
     {#if loading}
       <div class="text-center py-12">
         <div class="inline-block animate-spin w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full"></div>
-        <p class="mt-4 text-gray-600">Loading insights...</p>
+        <p class="mt-4 text-gray-600 dark:text-gray-400">Loading insights...</p>
       </div>
     {:else if $activeMetrics.length === 0}
       <Card>
         <div class="text-center py-12">
-          <p class="text-gray-600 mb-4">No metrics available. Create some metrics to see insights!</p>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">No metrics available. Create some metrics to see insights!</p>
           <a
             href="#/metrics"
             class="inline-block px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -118,10 +118,10 @@
       <!-- Controls -->
       <div class="mb-6 flex flex-wrap gap-4">
         <div class="flex-1 min-w-[200px]">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Range</label>
           <select
             bind:value={dateRange}
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -133,7 +133,7 @@
 
       <!-- Metric Selection -->
       <Card>
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Select Metrics to View</h2>
+        <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Select Metrics to View</h2>
         <div class="flex flex-wrap gap-2">
           {#each $activeMetrics as metric}
             <button
@@ -143,8 +143,11 @@
               class:text-white={selectedMetrics.includes(metric.id)}
               class:border-primary-600={selectedMetrics.includes(metric.id)}
               class:bg-white={!selectedMetrics.includes(metric.id)}
+              class:dark:bg-gray-800={!selectedMetrics.includes(metric.id)}
               class:text-gray-700={!selectedMetrics.includes(metric.id)}
+              class:dark:text-gray-300={!selectedMetrics.includes(metric.id)}
               class:border-gray-300={!selectedMetrics.includes(metric.id)}
+              class:dark:border-gray-600={!selectedMetrics.includes(metric.id)}
             >
               {metric.name_key}
             </button>
@@ -156,7 +159,7 @@
         <!-- Trend Chart -->
         <div class="mt-6">
           <Card>
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Trend Over Time</h2>
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Trend Over Time</h2>
             {#if chartDatasets.length > 0 && chartDatasets.some((ds) => ds.data.length > 0)}
               <LineChart
                 title=""
@@ -165,14 +168,14 @@
                 xAxisType="time"
               />
             {:else}
-              <p class="text-gray-500 py-8 text-center">No data available for the selected date range</p>
+              <p class="text-gray-600 dark:text-gray-400 py-8 text-center">No data available for the selected date range</p>
             {/if}
           </Card>
         </div>
 
         <!-- Statistics Panels -->
         <div class="mt-6">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">Statistics</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Statistics</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {#each selectedMetrics as metricId}
               {@const metric = $activeMetrics.find((m) => m.id === metricId)}
@@ -185,7 +188,7 @@
       {:else}
         <Card>
           <div class="text-center py-12">
-            <p class="text-gray-600">Select at least one metric to view insights</p>
+            <p class="text-gray-600 dark:text-gray-400">Select at least one metric to view insights</p>
           </div>
       </Card>
     {/if}

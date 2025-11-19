@@ -10,9 +10,9 @@
 </script>
 
 <div class="flex flex-col items-center justify-center p-8" role="status" aria-live="polite" aria-busy="true">
-  <div class="{sizes[size]} border-4 border-gray-200 border-t-primary-600 rounded-full animate-spin" aria-hidden="true"></div>
+  <div class="{sizes[size]} border-4 border-gray-200 dark:border-gray-700 border-t-primary-600 dark:border-t-primary-500 rounded-full animate-spin" aria-hidden="true"></div>
   {#if text}
-    <p class="mt-4 text-gray-600">{text}</p>
+    <p class="mt-4 text-gray-600 dark:text-gray-400">{text}</p>
   {:else}
     <span class="sr-only">Loading...</span>
   {/if}

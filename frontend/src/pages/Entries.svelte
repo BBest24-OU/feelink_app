@@ -52,8 +52,8 @@
 <AuthenticatedLayout>
   <div class="flex justify-between items-center mb-8">
     <div>
-      <h1 class="text-3xl font-bold text-gray-800">{$t('entries.title')}</h1>
-      <p class="text-gray-600 mt-2">View and manage all your logged entries.</p>
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white">{$t('entries.title')}</h1>
+      <p class="text-gray-600 dark:text-gray-400 mt-2">View and manage all your logged entries.</p>
     </div>
     <Button variant="primary" on:click={() => window.location.hash = '/log'}>
       + {$t('entries.create')}
@@ -86,7 +86,7 @@
     <Loading />
   {:else if filteredEntries.length === 0}
     <Card>
-      <p class="text-center text-gray-500 py-8">{$t('entries.noEntries')}</p>
+      <p class="text-center text-gray-500 dark:text-gray-400 py-8">{$t('entries.noEntries')}</p>
     </Card>
   {:else}
     <div class="space-y-4">
@@ -94,9 +94,9 @@
         <Card>
           <div class="flex justify-between items-start mb-4">
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">{entry.entry_date}</h3>
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{entry.entry_date}</h3>
               {#if entry.notes}
-                <p class="text-sm text-gray-600 mt-1">{entry.notes}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{entry.notes}</p>
               {/if}
             </div>
             <div class="flex space-x-2">
@@ -119,9 +119,9 @@
 
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {#each entry.values as value}
-              <div class="bg-gray-50 rounded-lg p-3">
-                <p class="text-xs text-gray-500 mb-1">{getMetricName(value.metric_id)}</p>
-                <p class="text-sm font-semibold text-gray-800">{formatValue(value)}</p>
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-3">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{getMetricName(value.metric_id)}</p>
+                <p class="text-sm font-semibold text-gray-800 dark:text-white">{formatValue(value)}</p>
               </div>
             {/each}
           </div>

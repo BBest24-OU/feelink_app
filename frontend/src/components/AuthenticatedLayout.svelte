@@ -42,7 +42,7 @@
 </script>
 
 <!-- Full screen flex layout -->
-<div class="h-screen w-screen flex overflow-hidden bg-gray-50">
+<div class="h-screen w-screen flex overflow-hidden bg-gray-50 dark:bg-gray-900">
   <!-- Desktop Sidebar -->
   <Sidebar minimized={sidebarMinimized} on:toggle={handleSidebarToggle} />
 
@@ -59,9 +59,9 @@
       <div class="flex flex-col min-h-full">
         <!-- Sync Status Banner (only shown when offline with pending changes) -->
         {#if !$syncStatus.isOnline && $syncStatus.pendingCount > 0}
-          <div class="bg-amber-50 border-b border-amber-200">
+          <div class="bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800">
             <div class="px-4 md:px-6 py-2">
-              <p class="text-sm text-amber-800 flex items-center space-x-2">
+              <p class="text-sm text-amber-800 dark:text-amber-200 flex items-center space-x-2">
                 <AlertCircle size={16} />
                 <span
                   >You're offline. {$syncStatus.pendingCount} change(s) will sync when you're back
@@ -80,16 +80,16 @@
         </main>
 
         <!-- Footer - mt-auto ensures it stays at bottom -->
-        <footer class="mt-auto border-t border-gray-200 bg-white">
+        <footer class="mt-auto border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
           <div class="px-4 md:px-6 py-4 md:py-6">
             <div class="mx-auto max-w-7xl">
               <div
                 class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0"
               >
-                <p class="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center sm:text-left">
                   © {new Date().getFullYear()} Feelink. Track your well-being.
                 </p>
-                <div class="flex items-center space-x-4 text-xs sm:text-sm text-gray-500">
+                <div class="flex items-center space-x-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                   <span class="flex items-center space-x-1">
                     {#if $syncStatus.isOnline}
                       <span class="w-2 h-2 bg-green-500 rounded-full"></span>
