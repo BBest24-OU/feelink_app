@@ -32,8 +32,14 @@ async def generate_demo_data(
     Raises:
         400: If user already has data
     """
-    result = DemoDataService.generate_demo_data(db, current_user)
-    return result
+    try:
+        result = DemoDataService.generate_demo_data(db, current_user)
+        return result
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
 
 
 @router.delete("/clear", status_code=status.HTTP_204_NO_CONTENT)
@@ -53,5 +59,11 @@ async def clear_user_data(
     Returns:
         204 No Content
     """
-    DemoDataService.clear_user_data(db, current_user)
-    return None
+    try:
+        DemoDataService.clear_user_data(db, current_user)
+        return None
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to clear user data"
+        )

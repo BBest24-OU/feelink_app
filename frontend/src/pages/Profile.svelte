@@ -2,10 +2,11 @@
   import { onMount } from 'svelte';
   import { authStore, authActions } from '../stores/user';
   import { t } from '../i18n';
-  import { User, Mail, Globe, Clock, Lock } from 'lucide-svelte';
+  import { User, Mail, Globe, Clock, Lock, Database } from 'lucide-svelte';
   import Card from '../components/Card.svelte';
   import Button from '../components/Button.svelte';
   import Input from '../components/Input.svelte';
+  import Modal from '../components/Modal.svelte';
   import AuthenticatedLayout from '../components/AuthenticatedLayout.svelte';
 
   let name = '';
@@ -13,10 +14,27 @@
   let language = 'en';
   let timezone = 'UTC';
   let loading = false;
-  let success = '';
-  let error = '';
+  let success: string | null = '';
+  let error: string | null = '';
+  let isGeneratingDemo = false;
+  let isClearingData = false;
+  let showClearConfirmModal = false;
+  let showDemoConfirmModal = false;
 
-  onMount(() => {
+  console.log('[Profile] Module loaded - script running');
+
+  onMount(async () => {
+    console.log('[Profile] Component mounted');
+    if (!$authStore.accessToken) {
+      window.location.hash = '/login';
+      return;
+    }
+
+    if (!$authStore.user) {
+      await authActions.loadProfile();
+    }
+    console.log('[Profile] User loaded:', $authStore.user);
+
     if ($authStore.user) {
       name = $authStore.user.name || '';
       email = $authStore.user.email || '';
@@ -67,6 +85,92 @@
   function handleResetPassword() {
     // Placeholder - no real action yet
     alert($t('profile.resetPasswordPlaceholder'));
+  }
+
+  async function handleGenerateDemoData() {
+    console.log('[Profile] Starting demo data generation');
+    showDemoConfirmModal = false;
+    isGeneratingDemo = true;
+    error = null;
+    success = null;
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/demo-data/generate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${$authStore.accessToken}`
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to generate demo data');
+      }
+
+      const result = await response.json();
+      console.log('[Profile] Demo data generated:', result);
+      success = $t('onboarding.demoDataGenerated');
+
+      // Close modal and reload page after a short delay to show the data
+      setTimeout(() => {
+        showDemoConfirmModal = false;
+      }, 1000);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err: any) {
+      console.error('[Profile] Error generating demo data:', err);
+      error = err.message || $t('onboarding.demoDataError');
+    } finally {
+      isGeneratingDemo = false;
+    }
+  }
+
+  async function handleClearData() {
+    console.log('[Profile] Starting data clear');
+    showClearConfirmModal = false;
+    isClearingData = true;
+    error = null;
+    success = null;
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/demo-data/clear`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${$authStore.accessToken}`
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to clear data');
+      }
+
+      console.log('[Profile] Data cleared successfully');
+      success = $t('onboarding.dataCleared');
+
+      // Close modal and reload page after a short delay
+      setTimeout(() => {
+        showClearConfirmModal = false;
+      }, 1000);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (err: any) {
+      console.error('[Profile] Error clearing data:', err);
+      error = err.message || $t('onboarding.clearDataError');
+    } finally {
+      isClearingData = false;
+    }
+  }
+
+  function handleLogout() {
+    authActions.logout();
+    window.location.hash = '/login';
   }
 </script>
 
@@ -188,274 +292,129 @@
         </div>
       </div>
     </Card>
-  </div>
-</AuthenticatedLayout>
-  import Card from '../components/Card.svelte';
-  import Button from '../components/Button.svelte';
-  import Modal from '../components/Modal.svelte';
 
-  let isGeneratingDemo = false;
-  let isClearingData = false;
-  let showClearConfirmModal = false;
-  let showDemoConfirmModal = false;
-  let error: string | null = null;
-  let success: string | null = null;
+    <!-- Data Management Card -->
+    <Card>
+      <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center space-x-2">
+        <Database size={24} class="text-primary-600" />
+        <span>{$t('onboarding.dataSection')}</span>
+      </h2>
 
-  console.log('[Profile] Module loaded - script running');
-
-  onMount(async () => {
-    console.log('[Profile] Component mounted');
-    if (!$authStore.accessToken) {
-      window.location.hash = '/login';
-      return;
-    }
-
-    if (!$authStore.user) {
-      await authActions.loadProfile();
-    }
-    console.log('[Profile] User loaded:', $authStore.user);
-  });
-
-  async function handleGenerateDemoData() {
-    console.log('[Profile] Starting demo data generation');
-    showDemoConfirmModal = false;
-    isGeneratingDemo = true;
-    error = null;
-    success = null;
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/demo-data/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${$authStore.accessToken}`
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to generate demo data');
-      }
-
-      const result = await response.json();
-      console.log('[Profile] Demo data generated:', result);
-      success = $t('profile.demoDataGenerated');
-
-      // Reload the page after a short delay to show the data
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    } catch (err: any) {
-      console.error('[Profile] Error generating demo data:', err);
-      error = err.message || $t('profile.demoDataError');
-    } finally {
-      isGeneratingDemo = false;
-    }
-  }
-
-  async function handleClearData() {
-    console.log('[Profile] Starting data clear');
-    showClearConfirmModal = false;
-    isClearingData = true;
-    error = null;
-    success = null;
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/demo-data/clear`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${$authStore.accessToken}`
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to clear data');
-      }
-
-      console.log('[Profile] Data cleared successfully');
-      success = $t('profile.dataCleared');
-
-      // Reload the page after a short delay
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    } catch (err: any) {
-      console.error('[Profile] Error clearing data:', err);
-      error = err.message || $t('profile.clearDataError');
-    } finally {
-      isClearingData = false;
-    }
-  }
-
-  function handleLogout() {
-    authActions.logout();
-    window.location.hash = '/login';
-  }
-</script>
-
-<div class="min-h-screen bg-gray-50">
-  <!-- Navigation -->
-  <nav class="bg-white shadow-sm border-b border-gray-200">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-primary-600">FeelInk</h1>
-        <div class="flex items-center space-x-6">
-          <a href="#/dashboard" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.dashboard')}
-          </a>
-          <a href="#/log" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.log')}
-          </a>
-          <a href="#/metrics" class="text-gray-700 hover:text-primary-600 font-medium">
-            {$t('nav.metrics')}
-          </a>
-          <a href="#/entries" class="text-gray-700 hover:text-primary-600 font-medium">
-            Entries
-          </a>
-          <a href="#/insights" class="text-gray-700 hover:text-primary-600 font-medium">
-            Insights
-          </a>
-          <a href="#/correlations" class="text-gray-700 hover:text-primary-600 font-medium">
-            Correlations
-          </a>
-          <a href="#/profile" class="text-primary-600 hover:text-primary-700 font-medium">
-            {$t('nav.profile')}
-          </a>
-          <Button size="sm" variant="ghost" on:click={handleLogout}>
-            {$t('auth.logout')}
+      <div class="space-y-6">
+        <!-- Demo Data Section -->
+        <div>
+          <h3 class="text-sm font-medium text-gray-700 mb-2">{$t('onboarding.demoData')}</h3>
+          <p class="text-sm text-gray-600 mb-4">{$t('onboarding.demoDataDescription')}</p>
+          <Button
+            variant="secondary"
+            disabled={isGeneratingDemo}
+            on:click={() => {
+              console.log('[Profile] Demo button clicked, showing modal');
+              showDemoConfirmModal = true;
+            }}
+          >
+            {isGeneratingDemo ? $t('common.loading') : $t('onboarding.generateDemoData')}
           </Button>
         </div>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main Content -->
-  <div class="container mx-auto p-6 max-w-4xl">
-    <!-- Page Title -->
-    <div class="mb-8">
-      <h2 class="text-3xl font-bold text-gray-800">{$t('profile.title')}</h2>
-      <p class="text-sm text-gray-500 mt-2">You are on the Profile page</p>
-    </div>
-
-    <!-- Error/Success Messages -->
-    {#if error}
-      <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-        <p class="text-red-700">{error}</p>
-      </div>
-    {/if}
-
-    {#if success}
-      <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-        <p class="text-green-700">{success}</p>
-      </div>
-    {/if}
-
-    <div class="space-y-6">
-      <!-- Account Information -->
-      <Card>
-        <h3 class="text-xl font-bold text-gray-800 mb-4">{$t('profile.accountInfo')}</h3>
-        <div class="space-y-3">
-          <div>
-            <label class="text-sm font-medium text-gray-600">{$t('auth.email')}</label>
-            <p class="text-gray-800">{$authStore.user?.email || ''}</p>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-600">{$t('settings.language')}</label>
-            <p class="text-gray-800">{$authStore.user?.language === 'pl' ? 'Polski' : 'English'}</p>
-          </div>
-          <div>
-            <label class="text-sm font-medium text-gray-600">{$t('settings.timezone')}</label>
-            <p class="text-gray-800">{$authStore.user?.timezone || 'UTC'}</p>
-          </div>
+        <!-- Clear Data Section -->
+        <div>
+          <h3 class="text-sm font-medium text-gray-700 mb-2">{$t('onboarding.clearData')}</h3>
+          <p class="text-sm text-gray-600 mb-4">{$t('onboarding.clearDataDescription')}</p>
+          <Button
+            variant="danger"
+            disabled={isClearingData}
+            on:click={() => {
+              console.log('[Profile] Clear button clicked, showing modal');
+              showClearConfirmModal = true;
+            }}
+          >
+            {isClearingData ? $t('common.loading') : $t('onboarding.clearAllData')}
+          </Button>
         </div>
-      </Card>
 
-      <!-- Data Section -->
-      <Card>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">{$t('profile.dataSection')}</h3>
-        <p class="text-gray-600 mb-6">{$t('profile.dataSectionDescription')}</p>
-
-        <div class="space-y-4">
-          <!-- Demo Data Section -->
-          <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.demoData')}</h4>
-            <p class="text-sm text-gray-600 mb-4">{$t('profile.demoDataDescription')}</p>
-            <button
-              on:click={() => {
-                console.log('[Profile] Demo data button clicked');
-                showDemoConfirmModal = true;
-              }}
-              disabled={isGeneratingDemo || isClearingData}
-              class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-colors"
-            >
-              {#if isGeneratingDemo}
-                {$t('common.loading')}
-              {:else}
-                {$t('profile.generateDemoData')}
-              {/if}
-            </button>
+        <!-- Success/Error Messages for Data Operations -->
+        {#if success && (isGeneratingDemo || isClearingData)}
+          <div class="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+            {success}
           </div>
+        {/if}
 
-          <!-- Clear Data Section -->
-          <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
-            <h4 class="font-semibold text-gray-800 mb-2">{$t('profile.clearData')}</h4>
-            <p class="text-sm text-gray-600 mb-4">{$t('profile.clearDataDescription')}</p>
-            <button
-              on:click={() => {
-                console.log('[Profile] Clear data button clicked');
-                showClearConfirmModal = true;
-              }}
-              disabled={isGeneratingDemo || isClearingData}
-              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-colors"
-            >
-              {#if isClearingData}
-                {$t('common.loading')}
-              {:else}
-                {$t('profile.clearAllData')}
-              {/if}
-            </button>
+        {#if error && (isGeneratingDemo || isClearingData)}
+          <div class="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            {error}
           </div>
-        </div>
-      </Card>
-    </div>
+        {/if}
+      </div>
+    </Card>
   </div>
-</div>
+</AuthenticatedLayout>
 
 <!-- Demo Data Confirmation Modal -->
-{#if showDemoConfirmModal}
-  <Modal onClose={() => showDemoConfirmModal = false}>
-    <h3 slot="title">{$t('profile.confirmDemoData')}</h3>
-    <div slot="content">
-      <p class="text-gray-700">{$t('profile.confirmDemoDataMessage')}</p>
-    </div>
-    <div slot="actions" class="flex space-x-3">
+<Modal open={showDemoConfirmModal} onClose={() => !isGeneratingDemo && (showDemoConfirmModal = false)}>
+  <h3 slot="title">{isGeneratingDemo ? $t('common.loading') : $t('onboarding.confirmDemoData')}</h3>
+  <div slot="content">
+    {#if isGeneratingDemo}
+      <div class="space-y-4">
+        <p class="text-gray-700">{$t('onboarding.demoDataDescription')}</p>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-gray-700">Generating demo data...</span>
+            <span class="text-sm text-gray-500">In progress</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-primary-600 h-2 rounded-full animate-pulse w-3/4"></div>
+          </div>
+        </div>
+      </div>
+    {:else}
+      <p class="text-gray-700">{$t('onboarding.confirmDemoDataMessage')}</p>
+    {/if}
+  </div>
+  <div slot="actions" class="flex space-x-3">
+    {#if !isGeneratingDemo}
       <Button variant="ghost" on:click={() => showDemoConfirmModal = false}>
         {$t('common.cancel')}
       </Button>
       <Button variant="primary" on:click={handleGenerateDemoData}>
         {$t('common.confirm')}
       </Button>
-    </div>
-  </Modal>
-{/if}
+    {/if}
+  </div>
+</Modal>
 
 <!-- Clear Data Confirmation Modal -->
-{#if showClearConfirmModal}
-  <Modal onClose={() => showClearConfirmModal = false}>
-    <h3 slot="title">{$t('profile.confirmClearData')}</h3>
-    <div slot="content">
-      <p class="text-gray-700 mb-4">{$t('profile.confirmClearDataMessage')}</p>
-      <p class="text-red-600 font-semibold">{$t('profile.clearDataWarning')}</p>
-    </div>
-    <div slot="actions" class="flex space-x-3">
+<Modal open={showClearConfirmModal} onClose={() => !isClearingData && (showClearConfirmModal = false)}>
+  <h3 slot="title">{isClearingData ? $t('common.loading') : $t('onboarding.confirmClearData')}</h3>
+  <div slot="content">
+    {#if isClearingData}
+      <div class="space-y-4">
+        <p class="text-gray-700">{$t('onboarding.clearDataDescription')}</p>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-gray-700">Clearing all data...</span>
+            <span class="text-sm text-gray-500">In progress</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-red-600 h-2 rounded-full animate-pulse w-3/4"></div>
+          </div>
+        </div>
+      </div>
+    {:else}
+      <div>
+        <p class="text-gray-700 mb-4">{$t('onboarding.confirmClearDataMessage')}</p>
+        <p class="text-red-600 font-semibold">{$t('onboarding.clearDataWarning')}</p>
+      </div>
+    {/if}
+  </div>
+  <div slot="actions" class="flex space-x-3">
+    {#if !isClearingData}
       <Button variant="ghost" on:click={() => showClearConfirmModal = false}>
         {$t('common.cancel')}
       </Button>
       <Button variant="danger" on:click={handleClearData}>
-        {$t('profile.clearAllData')}
+        {$t('onboarding.clearAllData')}
       </Button>
-    </div>
-  </Modal>
-{/if}
+    {/if}
+  </div>
+</Modal>

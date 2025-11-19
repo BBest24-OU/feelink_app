@@ -192,7 +192,18 @@ class DemoDataService:
 
         Returns:
             Summary of generated data
+
+        Raises:
+            ValueError: If user already has data
         """
+        # Check if user already has entries
+        existing_entry_count = db.query(Entry).filter(Entry.user_id == user.id).count()
+        if existing_entry_count > 0:
+            raise ValueError(
+                "You already have data in your account. Please clear your data first before generating demo data. "
+                "Go to Profile > Data > Clear All Data"
+            )
+
         # Create metrics
         metrics_created = []
         for metric_data in cls.DEMO_METRICS:
