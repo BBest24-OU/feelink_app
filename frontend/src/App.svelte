@@ -27,6 +27,12 @@
     // Initialize i18n first
     await initI18n();
 
+    // Subscribe to theme store to ensure it's initialized
+    // This is important for proper theme application
+    const unsubscribe = themeStore.subscribe(state => {
+      console.log('[App] Theme store state:', state);
+    });
+
     // Try to load user profile if token exists but user is not already loaded
     const token = localStorage.getItem('access_token');
     const currentAuth = get(authStore);
@@ -38,6 +44,8 @@
 
     // Check if onboarding is needed after loading profile
     checkOnboarding();
+
+    // Don't unsubscribe - keep theme subscription active
   });
 
   // Check if we should show onboarding
